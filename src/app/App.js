@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <div>
+      <div className="btn btn-primary m-3">
         <h1>App</h1>
       </div>
     </>
