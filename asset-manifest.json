@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/gains-vs-spending/static/css/main.e6c13ad2.css",
-    "main.js": "/gains-vs-spending/static/js/main.defefaf9.js",
+    "main.css": "/gains-vs-spending/static/css/main.aafa20bb.css",
+    "main.js": "/gains-vs-spending/static/js/main.dab5c81c.js",
     "index.html": "/gains-vs-spending/index.html",
-    "main.e6c13ad2.css.map": "/gains-vs-spending/static/css/main.e6c13ad2.css.map",
-    "main.defefaf9.js.map": "/gains-vs-spending/static/js/main.defefaf9.js.map"
+    "main.aafa20bb.css.map": "/gains-vs-spending/static/css/main.aafa20bb.css.map",
+    "main.dab5c81c.js.map": "/gains-vs-spending/static/js/main.dab5c81c.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.defefaf9.js"
+    "static/css/main.aafa20bb.css",
+    "static/js/main.dab5c81c.js"
   ]
 }
