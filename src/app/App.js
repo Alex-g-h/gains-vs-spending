@@ -1,13 +1,38 @@
 import React from "react";
+import { Routes, Navigate, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import History from "./layouts/history";
+import Login from "./layouts/login";
+import Main from "./layouts/main";
 
 function App() {
   return (
     <>
-      <div className="btn btn-primary m-3">
-        <h1>App</h1>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={<Main />}
+        />
+        <Route
+          path="/login/:type?"
+          element={<Login />}
+        />
+        <Route
+          path="/history"
+          element={<History />}
+        />
+        <Route
+          path="*"
+          element={
+            <Navigate
+              to="/"
+              replace
+            />
+          }
+        />
+      </Routes>
       <ToastContainer />
     </>
   );
