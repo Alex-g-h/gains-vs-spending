@@ -35,7 +35,7 @@ const NavProfile = () => {
         <div className="me-2">User Name</div>
         <i
           className="bi bi-person-circle"
-          style={{ color: "#d6d3d1", "font-size": "2rem" }}
+          style={{ color: "#d6d3d1", fontSize: "2rem" }}
         ></i>
       </div>
       <div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
