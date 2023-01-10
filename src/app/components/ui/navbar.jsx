@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import BrandLogo from "../../images/brand_wo_bg.png";
+import BrandLogo from "../../../images/brand_wo_bg.png";
 import NavProfile from "./navProfile";
 
 const NavBar = () => {
