@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import History from "./layouts/history";
 import Login from "./layouts/login";
 import Main from "./layouts/main";
-import NavBar from "./ui/navbar";
+import NavBar from "./components/ui/navbar";
 
 function App() {
   return (
