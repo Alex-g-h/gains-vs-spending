@@ -1,10 +1,11 @@
 import React from "react";
+import TransactionHistoryPage from "../components/page/transactionHistoryPage/transactionHistoryPage";
 
 const History = () => {
   return (
-    <>
-      <h1>History</h1>
-    </>
+    <div className="container-fluid">
+      <TransactionHistoryPage />
+    </div>
   );
 };
 
