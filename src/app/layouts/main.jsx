@@ -1,11 +1,8 @@
 import React from "react";
+import MainPage from "../components/page/mainPage";
 
 const Main = () => {
-  return (
-    <div className="btn btn-primary m-3">
-      <h1>App</h1>
-    </div>
-  );
+  return <MainPage />;
 };
 
 export default Main;
