@@ -1,5 +1,5 @@
 import React from "react";
-import TransactionHistoryPage from "../components/page/transactionHistoryPage/transactionHistoryPage";
+import TransactionHistoryPage from "../components/page/transactionHistoryPage";
 
 const History = () => {
   return (
