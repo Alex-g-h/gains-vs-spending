@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../store/user";
+import SpinLoading from "../ui/SpinLoader";
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "", stayOn: false });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleChange = (target) => {
     setData((prevData) => ({
@@ -36,6 +42,7 @@ const LoginForm = () => {
   };
 
   const isValid = Object.keys(errors).length === 0;
+  const isActiveButton = isValid && !loading;
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // prevent page reload
@@ -44,14 +51,18 @@ const LoginForm = () => {
     const isValid = validate();
     if (!isValid) return;
 
-    try {
-      // await signIn(data);
-      navigate(
-        history.location.state ? history.location.state.from.pathname : "/"
-      );
-    } catch (error) {
-      setErrors(error);
-    }
+    setLoading(true);
+
+    const redirect = location.state ? location.state.referrer?.pathname : "/";
+
+    dispatch(signIn(data))
+      .unwrap()
+      .then(() => {
+        navigate(redirect, { replace: true });
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -82,10 +93,10 @@ const LoginForm = () => {
       </CheckBoxField>
       <button
         type="submit"
-        disabled={!isValid}
+        disabled={!isActiveButton}
         className="btn btn-primary w-100 mx-auto"
       >
-        Submit
+        {loading && <SpinLoading />} Log In
       </button>
     </form>
   );

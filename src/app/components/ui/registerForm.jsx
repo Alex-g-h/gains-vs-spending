@@ -4,18 +4,22 @@ import RadioField from "../common/form/radioField";
 import { validator } from "../../utils/validator";
 import { useNavigate } from "react-router-dom";
 import CheckBoxField from "../common/form/checkBoxField";
+import { useDispatch } from "react-redux";
+import { signUp } from "../../store/user";
+import SpinLoading from "./SpinLoader";
 
 const RegisterForm = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
-    profession: "",
     sex: "male",
     name: "",
     license: false,
   });
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (target) => {
     setData((prevData) => ({
@@ -68,6 +72,7 @@ const RegisterForm = () => {
   };
 
   const isValid = Object.keys(errors).length === 0;
+  const isActiveButton = isValid && !loading;
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // prevent page reload
@@ -76,12 +81,18 @@ const RegisterForm = () => {
     const isValid = validate();
     if (!isValid) return;
 
-    try {
-      // await signUp(newData);
-      navigate("/");
-    } catch (error) {
-      setErrors(error);
-    }
+    setLoading(true);
+
+    console.log(data);
+
+    dispatch(signUp(data))
+      .unwrap()
+      .then(() => {
+        navigate("/");
+      })
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -133,10 +144,10 @@ const RegisterForm = () => {
       </CheckBoxField>
       <button
         type="submit"
-        disabled={!isValid}
+        disabled={!isActiveButton}
         className="btn btn-primary w-100 mx-auto"
       >
-        Submit
+        {loading && <SpinLoading />} Sign Up
       </button>
     </form>
   );

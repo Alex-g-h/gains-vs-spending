@@ -1,43 +1,28 @@
 import React from "react";
-import { Routes, Navigate, Route } from "react-router-dom";
+import { useRoutes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import History from "./layouts/history";
-import Login from "./layouts/login";
-import Main from "./layouts/main";
+
 import NavBar from "./components/ui/navbar";
+import withRouter from "./hoc/withRouter";
+import withRedux from "./hoc/withRedux";
+import routes from "./routes";
+import { useSelector } from "react-redux";
+import { getIsLoggedIn } from "./store/user";
 
 function App() {
+  const isLoggedIn = useSelector(getIsLoggedIn());
+  const location = useLocation();
+  const elements = useRoutes(routes(isLoggedIn, location));
+
   return (
-    <>
+    <div>
       <NavBar />
-      <Routes>
-        <Route
-          path="/"
-          exact
-          element={<Main />}
-        />
-        <Route
-          path="/login/:type?"
-          element={<Login />}
-        />
-        <Route
-          path="/history"
-          element={<History />}
-        />
-        <Route
-          path="*"
-          element={
-            <Navigate
-              to="/"
-              replace
-            />
-          }
-        />
-      </Routes>
+      {elements}
       <ToastContainer />
-    </>
+    </div>
   );
 }
 
-export default App;
+const AppWithStoreAndRoutes = withRedux(withRouter(App));
+export default AppWithStoreAndRoutes;
