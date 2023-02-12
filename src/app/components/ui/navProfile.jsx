@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getCurrentUserData } from "../../store/user";
 
 const NavProfile = () => {
   const [isOpen, setOpen] = useState(false);
+  const { name: userName } = useSelector(getCurrentUserData());
 
   const toggleDropdown = () => {
     setOpen((prevState) => !prevState);
@@ -32,7 +35,7 @@ const NavProfile = () => {
       onClick={toggleDropdown}
     >
       <div className="btn dropdown-toggle d-flex align-items-center">
-        <div className="me-2">User Name</div>
+        <div className="me-2">{userName}</div>
         <i
           className="bi bi-person-circle"
           style={{ color: "#d6d3d1", fontSize: "2rem" }}

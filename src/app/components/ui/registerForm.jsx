@@ -83,8 +83,6 @@ const RegisterForm = () => {
 
     setLoading(true);
 
-    console.log(data);
-
     dispatch(signUp(data))
       .unwrap()
       .then(() => {

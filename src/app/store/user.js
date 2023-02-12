@@ -7,11 +7,13 @@ import generateAuthError from "../utils/generateAuthError";
 const initialState = localStorageService.getAccessToken()
   ? {
       auth: { userId: localStorageService.getUserId() },
+      user: localStorageService.getUser(),
       isLoggedIn: true,
       error: null,
     }
   : {
       auth: null,
+      user: null,
       isLoggedIn: false,
       error: null,
     };
@@ -25,15 +27,15 @@ export const signUp = createAsyncThunk(
     try {
       const data = await authService.register({ email, password });
       localStorageService.setTokens(data);
-      thunkAPI.dispatch(
-        createUser({
-          _id: data.localId,
-          email,
-          name,
-          ...rest,
-        })
-      );
-      return { userId: data.localId };
+      const user = {
+        _id: data.localId,
+        email,
+        name,
+        ...rest,
+      };
+      thunkAPI.dispatch(createUser(user));
+      localStorageService.setUser(user);
+      return { userId: data.localId, user };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
@@ -46,11 +48,12 @@ export const signIn = createAsyncThunk(
     try {
       const data = await authService.login({ email, password });
       localStorageService.setTokens(data);
-      console.log(data);
-      return { userId: data.localId };
+
+      const user = await userService.getCurrentUser();
+      localStorageService.setUser(user);
+      return { userId: data.localId, user };
     } catch (error) {
       const { code, message } = error.response.data.error;
-      console.log(code, message);
       let errorOutMessage = "";
       if (code === 400) {
         const errorMessage = generateAuthError(message);
@@ -98,7 +101,8 @@ const userSlice = createSlice({
       state.error = null;
     },
     [signUp.fulfilled]: (state, action) => {
-      state.auth = action.payload;
+      state.auth = { userId: action.payload.userId };
+      state.user = action.payload.user;
       state.isLoggedIn = true;
     },
     [signUp.rejected]: (state, action) => {
@@ -108,7 +112,8 @@ const userSlice = createSlice({
       state.error = null;
     },
     [signIn.fulfilled]: (state, action) => {
-      state.auth = action.payload;
+      state.auth = { userId: action.payload.userId };
+      state.user = action.payload.user;
       state.isLoggedIn = true;
     },
     [signIn.rejected]: (state, action) => {
@@ -117,6 +122,7 @@ const userSlice = createSlice({
     [logOut.fulfilled]: (state) => {
       state.isLoggedIn = false;
       state.auth = null;
+      state.user = null;
     },
   },
 });
@@ -126,9 +132,7 @@ const { reducer: userReducer, name } = userSlice;
 // Selectors
 export const getIsLoggedIn = () => (state) => state[name].isLoggedIn;
 export const getCurrentUserId = () => (state) => state[name].auth.userId;
-export const getCurrentUserData = () => (state) => {
-  return state[name]?.entities?.find((u) => u._id === state[name].auth?.userId);
-};
+export const getCurrentUserData = () => (state) => state[name].user;
 export const getAuthErrors = () => (state) => state[name].error;
 
 export default userReducer;
