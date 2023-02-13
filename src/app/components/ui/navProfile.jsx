@@ -43,7 +43,7 @@ const NavProfile = () => {
       </div>
       <div className={"w-100 dropdown-menu" + (isOpen ? " show" : "")}>
         <Link
-          to="/"
+          to="/profile"
           className="dropdown-item"
         >
           Profile
