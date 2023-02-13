@@ -5,7 +5,7 @@ import CheckBoxField from "../common/form/checkBoxField";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signIn } from "../../store/user";
-import SpinLoading from "../ui/SpinLoader";
+import SpinLoading from "./spinLoading";
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "", stayOn: false });
@@ -91,13 +91,17 @@ const LoginForm = () => {
       >
         Keep on login
       </CheckBoxField>
-      <button
-        type="submit"
-        disabled={!isActiveButton}
-        className="btn btn-primary w-100 mx-auto"
-      >
-        {loading && <SpinLoading />} Log In
-      </button>
+      {!loading ? (
+        <button
+          type="submit"
+          disabled={!isActiveButton}
+          className="btn btn-primary w-100 mx-auto"
+        >
+          Log In
+        </button>
+      ) : (
+        <SpinLoading />
+      )}
     </form>
   );
 };

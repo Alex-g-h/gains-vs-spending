@@ -5,7 +5,7 @@ import { getCurrentUserData, updateUser } from "../../store/user";
 import { validator } from "../../utils/validator";
 import RadioField from "../common/form/radioField";
 import TextField from "../common/form/textField";
-import SpinLoading from "../ui/SpinLoader";
+import SpinLoading from "../ui/spinLoading";
 
 const ProfilePage = () => {
   const user = useSelector(getCurrentUserData());
@@ -100,13 +100,17 @@ const ProfilePage = () => {
               label="Choose your sex"
               onChange={handleChange}
             />
-            <button
-              type="submit"
-              disabled={!isActiveButton}
-              className="btn btn-primary w-100 mx-auto"
-            >
-              {loading && <SpinLoading />} Sign Up
-            </button>
+            {!loading ? (
+              <button
+                type="submit"
+                disabled={!isActiveButton}
+                className="btn btn-primary w-100 mx-auto"
+              >
+                Update
+              </button>
+            ) : (
+              <SpinLoading />
+            )}
           </form>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useDispatch } from "react-redux";
 import { signUp } from "../../store/user";
-import SpinLoading from "./SpinLoader";
+import SpinLoading from "./spinLoading";
 
 const RegisterForm = () => {
   const [data, setData] = useState({
@@ -140,13 +140,17 @@ const RegisterForm = () => {
       >
         Confirm the <a>license agreement</a>
       </CheckBoxField>
-      <button
-        type="submit"
-        disabled={!isActiveButton}
-        className="btn btn-primary w-100 mx-auto"
-      >
-        {loading && <SpinLoading />} Sign Up
-      </button>
+      {!loading ? (
+        <button
+          type="submit"
+          disabled={!isActiveButton}
+          className="btn btn-primary w-100 mx-auto"
+        >
+          Sign Up
+        </button>
+      ) : (
+        <SpinLoading />
+      )}
     </form>
   );
 };
