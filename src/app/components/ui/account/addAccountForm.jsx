@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import TextField from "../common/form/textField";
-import SelectPayment from "../common/form/selectPayment";
-import { validator } from "../../utils/validator";
+import TextField from "../../common/form/textField";
+import SelectPayment from "../../common/form/selectPayment";
+import { validator } from "../../../utils/validator";
 import { useNavigate } from "react-router-dom";
-import CheckBoxField from "../common/form/checkBoxField";
+import CheckBoxField from "../../common/form/checkBoxField";
 import { useDispatch, useSelector } from "react-redux";
-import SpinLoading from "./spinLoading";
+import SpinLoading from "../spinLoading";
 import {
   getPaymentLoadingStatus,
   getPayments,
   loadPayments,
-} from "../../store/payment";
-import { getUserId } from "../../services/localStorage.service";
-import { createAccount } from "../../store/account";
+} from "../../../store/payment";
+import { getUserId } from "../../../services/localStorage.service";
+import { createAccount } from "../../../store/account";
 
 const AddAccountForm = () => {
   const [data, setData] = useState({

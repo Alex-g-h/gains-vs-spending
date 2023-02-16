@@ -22,7 +22,7 @@ export const createAccount = createAsyncThunk(
       const { content } = await accountService.create(account);
       return content;
     } catch (error) {
-      thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -34,7 +34,7 @@ export const loadAccounts = createAsyncThunk(
       const { content } = await accountService.get();
       return content;
     } catch (error) {
-      thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -73,7 +73,13 @@ const { reducer: accountReducer, name } = accountSlice;
 export const getAccountById = (id) => (state) =>
   state[name].entities.find((a) => a._id === id);
 
-export const getAccounts = () => (state) => state[name].entities;
+// get account only for one user
+export const getAccounts = (userId) => (state) =>
+  state[name].entities?.reduce((res, curr) => {
+    if (curr.user_id === userId) return [...res, curr];
+    return res;
+  }, []);
+
 export const getAccountLoadingStatus = () => (state) => state[name].isLoading;
 
 export default accountReducer;

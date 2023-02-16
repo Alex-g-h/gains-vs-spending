@@ -1,5 +1,5 @@
 import React from "react";
-import Accounts from "./accounts";
+import Accounts from "../../ui/account/accounts";
 import Analitics from "./analitics";
 import Gains from "./gains";
 import Spending from "./spending";

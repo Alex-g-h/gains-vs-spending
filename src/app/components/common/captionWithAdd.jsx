@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const CaptionWithAdd = ({ caption, handleAdd }) => {
   return (
     <div className="d-flex align-items-center">
-      <div className="">
+      <div className="flex-grow-1">
         <h5>{caption}</h5>
       </div>
       <div className="pb-1">

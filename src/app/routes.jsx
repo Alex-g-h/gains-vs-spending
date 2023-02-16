@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import MainPage from "./components/page/mainPage";
 import ProfilePage from "./components/page/profilePage";
-import AddAccountForm from "./components/ui/addAccountForm";
+import AddAccountForm from "./components/ui/account/addAccountForm";
 import History from "./layouts/history";
 import Login from "./layouts/login";
 import LogOut from "./layouts/logout";
