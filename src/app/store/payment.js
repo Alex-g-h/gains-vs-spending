@@ -12,7 +12,6 @@ export const loadPayments = createAsyncThunk(
   async (thunkAPI) => {
     try {
       const data = await paymentService.get();
-      console.log(data);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -26,6 +25,7 @@ const paymentSlice = createSlice({
   extraReducers: {
     [loadPayments.pending]: (state) => {
       state.isLoading = true;
+      state.error = null;
     },
     [loadPayments.fulfilled]: (state, action) => {
       state.entities = action.payload;
@@ -41,10 +41,33 @@ const paymentSlice = createSlice({
 const { reducer: paymentReducer, name } = paymentSlice;
 
 // Selectors
-
 export const getPaymentLoadingStatus = () => (state) => state[name].isLoading;
-export const getPayments = () => (state) => state[name].entities;
+
+// get sorted payment systems
+export const getPayments = () => (state) => {
+  const sortedArray = [...state[name].entities];
+  return sortedArray?.sort(sortPaymentByName);
+};
+
+export const getPaymentsId = () => (state) =>
+  state[name].entities?.map((p) => p._id);
+
 export const getPaymentById = (id) => (state) =>
-  state[name].entities.find((p) => p._id === id);
+  state[name].entities?.find((p) => p._id === id);
+
+// sort by name
+function sortPaymentByName(a, b) {
+  const nameA = a.name.toUpperCase(); // ignore upper and lowercase
+  const nameB = b.name.toUpperCase(); // ignore upper and lowercase
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+
+  // names must be equal
+  return 0;
+}
 
 export default paymentReducer;

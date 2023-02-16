@@ -60,7 +60,7 @@ const LoginForm = () => {
       .then(() => {
         navigate(redirect, { replace: true });
       })
-      .catch(() => {
+      .finally(() => {
         setLoading(false);
       });
   };

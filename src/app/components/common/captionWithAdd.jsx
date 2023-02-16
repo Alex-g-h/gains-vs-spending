@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CaptionWithAdd = ({ caption, handleAdd }) => {
   return (
-    <div className="d-flex align-items-center p-1">
+    <div className="d-flex align-items-center">
       <div className="">
         <h5>{caption}</h5>
       </div>

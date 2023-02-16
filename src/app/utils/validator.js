@@ -30,6 +30,14 @@ export function validator(data, config) {
       case "min":
         statusWrongValidate = data.length < config.value;
         break;
+      case "max":
+        statusWrongValidate = data.length > config.value;
+        break;
+      case "isOnlyDigits": {
+        const digitRegExp = /^\d+$/g;
+        statusWrongValidate = !digitRegExp.test(data);
+        break;
+      }
       default:
         break;
     }

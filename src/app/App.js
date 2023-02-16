@@ -9,6 +9,7 @@ import withRedux from "./hoc/withRedux";
 import routes from "./routes";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "./store/user";
+import AppLoader from "./hoc/appLoader";
 
 function App() {
   const isLoggedIn = useSelector(getIsLoggedIn());
@@ -17,8 +18,10 @@ function App() {
 
   return (
     <div>
-      <NavBar />
-      {elements}
+      <AppLoader>
+        <NavBar />
+        {elements}
+      </AppLoader>
       <ToastContainer />
     </div>
   );

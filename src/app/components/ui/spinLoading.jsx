@@ -2,7 +2,7 @@ import React from "react";
 
 const SpinLoading = () => {
   return (
-    <div className="d-flex justify-content-center">
+    <div className="d-flex justify-content-center align-items-center h-100">
       <div
         className="spinner-border text-primary"
         role="status"

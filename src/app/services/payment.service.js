@@ -1,10 +1,12 @@
 import httpService from "./http.service";
 
-const paymentEndpoit = "/payment";
+const paymentEndpoit = "payment";
 
 const paymentService = {
   get: async () => {
-    const { data } = await httpService.get(paymentEndpoit);
+    const {
+      data: { content: data },
+    } = await httpService.get(paymentEndpoit);
     return data;
   },
 };

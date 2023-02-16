@@ -1,36 +1,36 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  getPaymentLoadingStatus,
-  getPayments,
-  loadPayments,
-} from "../../../store/payment";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getPaymentLoadingStatus, getPayments } from "../../../store/payment";
 import CaptionWithAdd from "../../common/captionWithAdd";
+import SpinLoading from "../../ui/spinLoading";
 
 const Accounts = () => {
   const payments = useSelector(getPayments());
   const paymentsLoading = useSelector(getPaymentLoadingStatus());
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(loadPayments());
-  }, []);
-
-  if (paymentsLoading) return "Loading...";
+  const navigate = useNavigate();
 
   console.log("payments", payments);
 
   const handleAdd = () => {
-    console.log("Accounts add");
+    navigate("/addAccount");
   };
 
+  const isLoading = paymentsLoading;
+
   return (
-    <div className="border rounded">
-      <CaptionWithAdd
-        caption="Accounts"
-        handleAdd={handleAdd}
-      />
-      <p>Content table</p>
+    <div className="border rounded p-1">
+      {isLoading ? (
+        <SpinLoading />
+      ) : (
+        <>
+          <CaptionWithAdd
+            caption="Accounts"
+            handleAdd={handleAdd}
+          />
+          <p>Content table</p>
+        </>
+      )}
     </div>
   );
 };

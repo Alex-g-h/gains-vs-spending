@@ -88,7 +88,7 @@ const RegisterForm = () => {
       .then(() => {
         navigate("/");
       })
-      .catch(() => {
+      .finally(() => {
         setLoading(false);
       });
   };
