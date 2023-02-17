@@ -9,16 +9,14 @@ const Account = ({ paymentId, number, bankName }) => {
 
   return (
     <div className="d-flex align-items-center justify-content-between">
-      <div className="d-flex">
-        <img
-          className="ms-2 mb-1 "
-          src={paymentImageSrc}
-          alt="payment system"
-          height="24"
-        />
-        <div className="mx-1">{bankName}</div>
-      </div>
-      <div className="mx-2">
+      <img
+        className="ms-1"
+        src={paymentImageSrc}
+        alt="payment system"
+        height="24"
+      />
+      <div className="mx-1 flex-grow-1">{bankName}</div>
+      <div className="mx-1">
         <strong>{secureNumber}</strong>
       </div>
     </div>

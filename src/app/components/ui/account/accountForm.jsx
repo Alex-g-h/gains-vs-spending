@@ -2,19 +2,19 @@ import React, { useState, useEffect } from "react";
 import TextField from "../../common/form/textField";
 import SelectPayment from "../../common/form/selectPayment";
 import { validator } from "../../../utils/validator";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import CheckBoxField from "../../common/form/checkBoxField";
 import { useDispatch, useSelector } from "react-redux";
 import SpinLoading from "../spinLoading";
-import {
-  getPaymentLoadingStatus,
-  getPayments,
-  loadPayments,
-} from "../../../store/payment";
+import { getPaymentLoadingStatus, getPayments } from "../../../store/payment";
 import { getUserId } from "../../../services/localStorage.service";
-import { createAccount } from "../../../store/account";
+import {
+  createAccount,
+  getAccountById,
+  updateAccount,
+} from "../../../store/account";
 
-const AddAccountForm = () => {
+const AccountForm = () => {
   const [data, setData] = useState({
     bank: "",
     number: "",
@@ -29,6 +29,19 @@ const AddAccountForm = () => {
   const paymentsLoading = useSelector(getPaymentLoadingStatus());
   const [paymentsConverted, setPaymentsConverted] = useState([]);
   const currentUserId = useSelector(getUserId);
+
+  const { accountId } = useParams();
+
+  const currentAccount = useSelector(getAccountById(accountId));
+
+  const isAddForm = !accountId; // else supposed it's a edit form
+
+  useEffect(() => {
+    if (currentAccount) {
+      const { bank, number, payment_id: payment, credit } = currentAccount;
+      setData({ bank, number, payment, credit });
+    }
+  }, []);
 
   const handleChange = (target) => {
     setData((prevData) => ({
@@ -59,10 +72,6 @@ const AddAccountForm = () => {
       isRequired: { message: "Payment system is required" },
     },
   };
-
-  useEffect(() => {
-    dispatch(loadPayments());
-  }, []);
 
   const convertPayments = (payments) =>
     payments.map((payment) => ({
@@ -97,14 +106,19 @@ const AddAccountForm = () => {
 
     setLoading(true);
 
-    dispatch(createAccount({ user_id: currentUserId, ...data }))
-      .unwrap()
-      .then(() => {
-        navigate(-1);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (isAddForm) {
+      console.log(data);
+      dispatch(createAccount({ user_id: currentUserId, ...data }))
+        .unwrap()
+        .then(() => navigate(-1))
+        .finally(() => setLoading(false));
+    } else {
+      const editAccount = { ...currentAccount, ...data };
+      dispatch(updateAccount(editAccount))
+        .unwrap()
+        .then(() => navigate(-1))
+        .finally(() => setLoading(false));
+    }
   };
 
   if (paymentsLoading) return <SpinLoading />;
@@ -135,6 +149,7 @@ const AddAccountForm = () => {
               name="payment"
               options={paymentsConverted}
               onChange={handleChange}
+              // defaultValue={data.payment}
             />
             <CheckBoxField
               value={data.credit}
@@ -150,7 +165,7 @@ const AddAccountForm = () => {
                 disabled={!isActiveButton}
                 className="btn btn-primary w-100 mx-auto"
               >
-                Add card
+                {isAddForm ? "Add " : "Edit "} card
               </button>
             ) : (
               <SpinLoading />
@@ -162,4 +177,4 @@ const AddAccountForm = () => {
   );
 };
 
-export default AddAccountForm;
+export default AccountForm;

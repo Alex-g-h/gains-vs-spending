@@ -7,7 +7,7 @@ const Accounts = () => {
   const navigate = useNavigate();
 
   const handleAdd = () => {
-    navigate("/addAccount");
+    navigate("/account/add");
   };
 
   return (

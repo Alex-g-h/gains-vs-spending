@@ -4,6 +4,8 @@ import { getPaymentById } from "../../store/payment";
 import PropTypes from "prop-types";
 
 const PaymentSystem = ({ paymentId }) => {
+  console.log("PaymentSystem paymentId", paymentId);
+
   const payment = useSelector(getPaymentById(paymentId));
 
   return (

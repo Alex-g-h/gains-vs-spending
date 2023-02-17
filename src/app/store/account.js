@@ -39,6 +39,32 @@ export const loadAccounts = createAsyncThunk(
   }
 );
 
+export const deleteAccount = createAsyncThunk(
+  "account/delete",
+  async (id, thunkAPI) => {
+    try {
+      const { content } = await accountService.delete(id);
+      return content === null
+        ? id
+        : thunkAPI.rejectWithValue(`Can't delete account with ID: ${id}`);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateAccount = createAsyncThunk(
+  "account/update",
+  async (payload, thunkAPI) => {
+    try {
+      const { content } = await accountService.update(payload);
+      return content;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 const accountSlice = createSlice({
   name: "account",
   initialState,
@@ -63,6 +89,28 @@ const accountSlice = createSlice({
     [loadAccounts.rejected]: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+    },
+    [deleteAccount.pending]: (state) => {
+      state.error = null;
+    },
+    [deleteAccount.fulfilled]: (state, action) => {
+      state.entities = state.entities.filter((a) => a._id !== action.payload);
+    },
+    [deleteAccount.rejected]: (state, action) => {
+      state.error = action.payload;
+    },
+    [updateAccount.pending]: (state) => {
+      state.error = null;
+    },
+    [updateAccount.fulfilled]: (state, action) => {
+      const newAccounts = state.entities.map((a) => {
+        if (a._id === action.payload._id) return action.payload;
+        return a;
+      });
+      state.entities = newAccounts;
+    },
+    [updateAccount.rejected]: (state, action) => {
+      state.error = action.payload;
     },
   },
 });

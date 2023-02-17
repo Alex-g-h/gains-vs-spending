@@ -1,8 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { getAccountLoadingStatus, getAccounts } from "../../../store/account";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {
+  deleteAccount,
+  getAccountLoadingStatus,
+  getAccounts,
+} from "../../../store/account";
 import { getPaymentLoadingStatus } from "../../../store/payment";
 import { getCurrentUserId } from "../../../store/user";
+import WithEditDelete from "../hoc/withEditDelete";
 import SpinLoading from "../spinLoading";
 import Account from "./account";
 
@@ -11,20 +17,36 @@ const AccountsList = () => {
   const accounts = useSelector(getAccounts(currentUserId));
   const accountLoadingStatus = useSelector(getAccountLoadingStatus());
   const paymentsLoadingStatus = useSelector(getPaymentLoadingStatus());
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isLoading = accountLoadingStatus || paymentsLoadingStatus;
 
   if (isLoading) return <SpinLoading />;
 
+  const handleEdit = (id) => {
+    navigate(`/account/${id}/edit`);
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteAccount(id));
+  };
+
   return (
     <div>
       {accounts.map((a) => (
-        <Account
+        <WithEditDelete
           key={a._id}
-          paymentId={a.payment_id}
-          number={a.number}
-          bankName={a.bank}
-        />
+          id={a._id}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        >
+          <Account
+            paymentId={a.payment_id}
+            number={a.number}
+            bankName={a.bank}
+          />
+        </WithEditDelete>
       ))}
     </div>
   );

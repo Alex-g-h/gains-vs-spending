@@ -8,11 +8,12 @@ const SelectPayment = ({ options, onChange, name, label, defaultValue }) => {
     onChange({ name, value });
   };
 
+  // TODO: show default value
+
   return (
     <div className=" mb-4">
       <label>{label}</label>{" "}
       <Select
-        defaultValue={defaultValue}
         name={name}
         options={options}
         onChange={handleChange}
@@ -27,7 +28,7 @@ SelectPayment.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  defaultValue: PropTypes.array,
+  defaultValue: PropTypes.string,
 };
 
 export default SelectPayment;

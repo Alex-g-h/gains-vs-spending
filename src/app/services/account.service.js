@@ -14,5 +14,16 @@ const accountService = {
     );
     return data;
   },
+  delete: async (id) => {
+    const { data } = await httpService.delete(accountEndpoint + id);
+    return data;
+  },
+  update: async (payload) => {
+    const { data } = await httpService.patch(
+      accountEndpoint + payload._id,
+      payload
+    );
+    return data;
+  },
 };
 export default accountService;
