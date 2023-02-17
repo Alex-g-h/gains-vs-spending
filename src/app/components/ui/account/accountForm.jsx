@@ -6,7 +6,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import CheckBoxField from "../../common/form/checkBoxField";
 import { useDispatch, useSelector } from "react-redux";
 import SpinLoading from "../spinLoading";
-import { getPaymentLoadingStatus, getPayments } from "../../../store/payment";
+import {
+  getPaymentById,
+  getPaymentLoadingStatus,
+  getPayments,
+} from "../../../store/payment";
 import { getUserId } from "../../../services/localStorage.service";
 import {
   createAccount,
@@ -14,11 +18,22 @@ import {
   updateAccount,
 } from "../../../store/account";
 
+const initialPayment = {
+  value: "",
+  image: "",
+  label: "",
+};
+
+/**
+ * Form with account data. Used both for edit existing account
+ * and for add new account depending on URL path.
+ * @returns Form with account data
+ */
 const AccountForm = () => {
   const [data, setData] = useState({
     bank: "",
     number: "",
-    payment: "",
+    payment: initialPayment,
     credit: false,
   });
   const [errors, setErrors] = useState({});
@@ -33,15 +48,24 @@ const AccountForm = () => {
   const { accountId } = useParams();
 
   const currentAccount = useSelector(getAccountById(accountId));
+  const paymentObj = useSelector(getPaymentById(currentAccount?.payment_id));
 
-  const isAddForm = !accountId; // else supposed it's a edit form
+  const isAddForm = !accountId; // otherwise it's the edit form
 
   useEffect(() => {
+    setPaymentsConverted(convertPayments(payments));
+
     if (currentAccount) {
-      const { bank, number, payment_id: payment, credit } = currentAccount;
-      setData({ bank, number, payment, credit });
+      const { bank, number, credit } = currentAccount;
+      const newData = { bank, number, payment: initialPayment, credit };
+
+      if (paymentObj) {
+        const paymentConverted = convertPayments([paymentObj]).at(0);
+        newData.payment = paymentConverted;
+      }
+      setData(newData);
     }
-  }, []);
+  }, [paymentsLoading]);
 
   const handleChange = (target) => {
     setData((prevData) => ({
@@ -73,16 +97,13 @@ const AccountForm = () => {
     },
   };
 
-  const convertPayments = (payments) =>
-    payments.map((payment) => ({
+  function convertPayments(payments) {
+    return payments.map((payment) => ({
       value: payment._id,
       label: payment.name,
       image: payment.image,
     }));
-
-  useEffect(() => {
-    setPaymentsConverted(convertPayments(payments));
-  }, [paymentsLoading]);
+  }
 
   useEffect(() => {
     validate();
@@ -107,13 +128,28 @@ const AccountForm = () => {
     setLoading(true);
 
     if (isAddForm) {
-      console.log(data);
-      dispatch(createAccount({ user_id: currentUserId, ...data }))
+      const { payment: paymentConverted, bank, number, credit } = data;
+      dispatch(
+        createAccount({
+          user_id: currentUserId,
+          payment_id: paymentConverted.value,
+          bank,
+          number,
+          credit,
+        })
+      )
         .unwrap()
         .then(() => navigate(-1))
         .finally(() => setLoading(false));
     } else {
-      const editAccount = { ...currentAccount, ...data };
+      const { payment: paymentConverted, bank, number, credit } = data;
+      const editAccount = {
+        ...currentAccount,
+        payment_id: paymentConverted.value,
+        bank,
+        number,
+        credit,
+      };
       dispatch(updateAccount(editAccount))
         .unwrap()
         .then(() => navigate(-1))
@@ -149,7 +185,8 @@ const AccountForm = () => {
               name="payment"
               options={paymentsConverted}
               onChange={handleChange}
-              // defaultValue={data.payment}
+              value={data.payment}
+              error={errors.payment}
             />
             <CheckBoxField
               value={data.credit}

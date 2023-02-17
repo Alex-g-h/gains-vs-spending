@@ -3,22 +3,31 @@ import Select from "react-select";
 import PropTypes from "prop-types";
 import PaymentSystem from "../../ui/paymentSystem";
 
-const SelectPayment = ({ options, onChange, name, label, defaultValue }) => {
-  const handleChange = ({ value }) => {
-    onChange({ name, value });
+const SelectPayment = ({ options, onChange, name, label, value, error }) => {
+  const handleChange = (data) => {
+    onChange({ name, value: { ...data } });
   };
 
-  // TODO: show default value
+  const getInputClasses = () => {
+    return "form-control" + (error ? " is-invalid" : " is-valid");
+  };
 
   return (
-    <div className=" mb-4">
+    <div className=" mb-4 ">
       <label>{label}</label>{" "}
-      <Select
-        name={name}
-        options={options}
-        onChange={handleChange}
-        getOptionLabel={(option) => <PaymentSystem paymentId={option.value} />}
-      />
+      <div className="input-group has-validation">
+        <Select
+          className={getInputClasses()}
+          name={name}
+          options={options}
+          onChange={handleChange}
+          value={value}
+          getOptionLabel={(option) => (
+            <PaymentSystem paymentId={option.value} />
+          )}
+        />
+        <div className="invalid-feedback">{error}</div>
+      </div>
     </div>
   );
 };
@@ -28,7 +37,8 @@ SelectPayment.propTypes = {
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  defaultValue: PropTypes.string,
+  value: PropTypes.object,
+  error: PropTypes.string,
 };
 
 export default SelectPayment;

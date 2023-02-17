@@ -11,11 +11,9 @@ const initialState = {
 export const createAccount = createAsyncThunk(
   "account/create",
   async (payload, thunkAPI) => {
-    const { payment, ...rest } = payload;
     const account = {
       _id: nanoid(28),
-      payment_id: payment,
-      ...rest,
+      ...payload,
     };
 
     try {

@@ -4,20 +4,19 @@ import { getPaymentById } from "../../store/payment";
 import PropTypes from "prop-types";
 
 const PaymentSystem = ({ paymentId }) => {
-  console.log("PaymentSystem paymentId", paymentId);
-
   const payment = useSelector(getPaymentById(paymentId));
+
+  if (!payment) return "Choose...";
 
   return (
     <div className="d-flex m-1 align-items-center">
-      {/* <div className="d-flex m-1 "> */}
       <img
         className="me-2"
-        src={payment.image}
+        src={payment?.image}
         alt="Payment logo"
         height="30px"
       />
-      {payment.name}
+      {payment?.name}
     </div>
   );
 };

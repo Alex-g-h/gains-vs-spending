@@ -29,6 +29,7 @@ const AccountsList = () => {
   };
 
   const handleDelete = (id) => {
+    // TODO: add modal confirmation window
     dispatch(deleteAccount(id));
   };
 
