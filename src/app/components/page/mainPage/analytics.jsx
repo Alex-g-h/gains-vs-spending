@@ -1,6 +1,6 @@
 import React from "react";
 
-const Analitics = () => {
+const Analytics = () => {
   return (
     <div className="border rounded p-2 ">
       <div>
@@ -14,10 +14,10 @@ const Analitics = () => {
         <div>Hist</div>
       </div>
       <div className="d-flex justify-content-center mt-3">
-        <div className="text-muted small">Analitics</div>
+        <div className="text-muted small">Analytics</div>
       </div>
     </div>
   );
 };
 
-export default Analitics;
+export default Analytics;

@@ -1,10 +1,12 @@
 import React from "react";
 import Accounts from "../../ui/account/accounts";
-import Analitics from "./analitics";
+import Analytics from "./analytics";
 import Gains from "./gains";
 import Spending from "./spending";
 
 const MainPage = () => {
+  // TODO: add icons to headers Gains, Accounts, Spending
+
   return (
     <div className="d-flex flex-column">
       <div className="container">
@@ -15,7 +17,7 @@ const MainPage = () => {
         </div>
       </div>
       <div className="container-fluid mt-4">
-        <Analitics />
+        <Analytics />
       </div>
     </div>
   );
