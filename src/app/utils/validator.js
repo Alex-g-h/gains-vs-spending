@@ -48,6 +48,16 @@ export function validator(data, config) {
         statusWrongValidate = !digitRegExp.test(data);
         break;
       }
+      case "isPositiveDigit": {
+        const value = Number(data);
+        if (Number.isNaN(value)) {
+          statusWrongValidate = true;
+        } else {
+          statusWrongValidate = value <= 0;
+        }
+
+        break;
+      }
       default:
         break;
     }
