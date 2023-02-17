@@ -7,6 +7,16 @@ export function validator(data, config) {
       case "isRequired":
         if (typeof data === "boolean") {
           statusWrongValidate = !data;
+        } else if (typeof data === "object") {
+          if (data) {
+            let isAllObjectValuesEmpty = true;
+            Object.values(data).forEach((value) => {
+              isAllObjectValuesEmpty &= !value;
+            });
+            statusWrongValidate = isAllObjectValuesEmpty;
+          } else {
+            statusWrongValidate = !data;
+          }
         } else {
           statusWrongValidate = data.trim() === "";
         }
