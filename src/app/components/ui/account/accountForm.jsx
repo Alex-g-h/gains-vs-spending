@@ -11,12 +11,14 @@ import {
   getPaymentLoadingStatus,
   getPayments,
 } from "../../../store/payment";
-import { getUserId } from "../../../services/localStorage.service";
 import {
   createAccount,
   getAccountById,
   updateAccount,
 } from "../../../store/account";
+import { getCurrentUserId } from "../../../store/user";
+
+// TODO: add bank card preview with data like real life view
 
 const initialPayment = {
   value: "",
@@ -43,7 +45,7 @@ const AccountForm = () => {
   const payments = useSelector(getPayments());
   const paymentsLoading = useSelector(getPaymentLoadingStatus());
   const [paymentsConverted, setPaymentsConverted] = useState([]);
-  const currentUserId = useSelector(getUserId);
+  const currentUserId = useSelector(getCurrentUserId());
 
   const { accountId } = useParams();
 
