@@ -1,9 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CaptionWithAdd from "../../common/captionWithAdd";
+import GainsList from "./gainsList";
 
 const Gains = () => {
+  const navigate = useNavigate();
+
   const handleAdd = () => {
-    console.log("Gains add");
+    navigate("/gain/add");
   };
 
   return (
@@ -12,7 +16,7 @@ const Gains = () => {
         caption="Gains"
         handleAdd={handleAdd}
       />
-      <p>Content table</p>
+      <GainsList />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import MainPage from "./components/page/mainPage";
 import ProfilePage from "./components/page/profilePage";
 import AccountForm from "./components/ui/account/accountForm";
+import GainForm from "./components/ui/gain/gainForm";
 import History from "./layouts/history";
 import Login from "./layouts/login";
 import LogOut from "./layouts/logout";
@@ -52,6 +53,15 @@ const routes = (isLoggedIn, location) => [
       {
         path: ":accountId/edit",
         element: <AccountForm />,
+      },
+    ],
+  },
+  {
+    path: "gain",
+    children: [
+      {
+        path: "add",
+        element: <GainForm />,
       },
     ],
   },

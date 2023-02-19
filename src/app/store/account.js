@@ -71,6 +71,7 @@ const accountSlice = createSlice({
       state.error = null;
     },
     [createAccount.fulfilled]: (state, action) => {
+      if (!Array.isArray(state.entities)) state.entities = [];
       state.entities.push(action.payload);
     },
     [createAccount.rejected]: (state, action) => {
@@ -117,7 +118,7 @@ const { reducer: accountReducer, name } = accountSlice;
 
 // Selectors
 export const getAccountById = (id) => (state) =>
-  state[name].entities.find((a) => a._id === id);
+  state[name].entities?.find((a) => a._id === id);
 
 // get account only for one user
 export const getAccounts = (userId) => (state) =>

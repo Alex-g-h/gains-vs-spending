@@ -2,10 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getPaymentById } from "../../../store/payment";
 import PropTypes from "prop-types";
+import makeAccountNumberSecure from "../../../utils/makeAccountNumberSecure";
 
 const Account = ({ paymentId, number, bankName }) => {
   const { image: paymentImageSrc } = useSelector(getPaymentById(paymentId));
-  const secureNumber = "***" + number.substring(number.length - 4);
+  const secureNumber = makeAccountNumberSecure(number);
+
+  // TODO: adaptive design (remove bank name, shorter secure account number)
 
   return (
     <div className="d-flex align-items-center justify-content-between">
@@ -25,7 +28,7 @@ const Account = ({ paymentId, number, bankName }) => {
 
 Account.propTypes = {
   paymentId: PropTypes.string,
-  number: PropTypes.string,
+  number: PropTypes.number,
   bankName: PropTypes.string,
 };
 

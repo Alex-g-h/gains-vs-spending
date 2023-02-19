@@ -131,12 +131,13 @@ const AccountForm = () => {
 
     if (isAddForm) {
       const { payment: paymentConverted, bank, number, credit } = data;
+      const numberNumber = Number(number);
       dispatch(
         createAccount({
           user_id: currentUserId,
           payment_id: paymentConverted.value,
           bank,
-          number,
+          number: numberNumber,
           credit,
         })
       )

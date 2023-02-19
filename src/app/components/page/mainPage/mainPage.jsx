@@ -1,11 +1,13 @@
 import React from "react";
-import Accounts from "../../ui/account/accounts";
+import Accounts from "../../ui/account";
 import Analytics from "./analytics";
-import Gains from "./gains";
+import Gains from "../../ui/gain";
 import Spending from "./spending";
 
 const MainPage = () => {
   // TODO: add icons to headers Gains, Accounts, Spending
+
+  // TODO: refactor headers for Gains, Accounts, Spending with HOC
 
   return (
     <div className="d-flex flex-column">

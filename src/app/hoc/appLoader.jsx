@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { loadAccounts } from "../store/account";
 import { loadPayments } from "../store/payment";
 import { getIsLoggedIn } from "../store/user";
+import { loadGains } from "../store/gain";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const AppLoader = ({ children }) => {
     if (isLoggedIn) {
       dispatch(loadAccounts());
       dispatch(loadPayments());
+      dispatch(loadGains());
     }
   }, [isLoggedIn]);
 
