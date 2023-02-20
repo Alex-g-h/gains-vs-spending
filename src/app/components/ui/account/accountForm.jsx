@@ -57,10 +57,9 @@ const AccountForm = () => {
   useEffect(() => {
     if (currentAccount) {
       const { bank, number, credit } = currentAccount;
-      const numberString = String(number);
       const newData = {
         bank,
-        number: numberString,
+        number,
         payment: initialPayment,
         credit,
       };
@@ -138,7 +137,6 @@ const AccountForm = () => {
     setLoading(true);
 
     const { payment: paymentConverted, bank, number, credit } = data;
-    const numberNumber = Number(number);
 
     if (isAddForm) {
       dispatch(
@@ -146,7 +144,7 @@ const AccountForm = () => {
           user_id: currentUserId,
           payment_id: paymentConverted.value,
           bank,
-          number: numberNumber,
+          number,
           credit,
         })
       )
@@ -158,7 +156,7 @@ const AccountForm = () => {
         ...currentAccount,
         payment_id: paymentConverted.value,
         bank,
-        number: numberNumber,
+        number,
         credit,
       };
       dispatch(updateAccount(editAccount))

@@ -28,7 +28,7 @@ const Account = ({ paymentId, number, bankName }) => {
 
 Account.propTypes = {
   paymentId: PropTypes.string,
-  number: PropTypes.number,
+  number: PropTypes.string,
   bankName: PropTypes.string,
 };
 
