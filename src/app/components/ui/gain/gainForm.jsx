@@ -75,7 +75,7 @@ const GainForm = () => {
   }, [data]);
 
   function convertAccounts(accounts) {
-    return accounts.map((account) => ({
+    return accounts?.map((account) => ({
       value: account._id,
       label: String(account.number),
     }));

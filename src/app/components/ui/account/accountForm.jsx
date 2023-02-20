@@ -107,7 +107,7 @@ const AccountForm = () => {
   };
 
   function convertPayments(payments) {
-    return payments.map((payment) => ({
+    return payments?.map((payment) => ({
       value: payment._id,
       label: payment.name,
       image: payment.image,
