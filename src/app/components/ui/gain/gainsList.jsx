@@ -5,7 +5,7 @@ import {
   // getAccounts
 } from "../../../store/account";
 import {
-  deleteGain,
+  deleteGainById,
   getGains,
   getGainsLoadingStatus,
 } from "../../../store/gain";
@@ -33,7 +33,7 @@ const GainsList = () => {
 
   const handleDelete = (id) => {
     // TODO: add modal confirmation window
-    dispatch(deleteGain(id));
+    dispatch(deleteGainById(id));
   };
 
   return (

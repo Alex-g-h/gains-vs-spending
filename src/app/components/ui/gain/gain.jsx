@@ -5,7 +5,11 @@ import { getAccountById } from "../../../store/account";
 import makeAccountNumberSecure from "../../../utils/makeAccountNumberSecure";
 
 const Gain = ({ amount, date, accountId }) => {
-  const { number: accountNumber } = useSelector(getAccountById(accountId));
+  const account = useSelector(getAccountById(accountId));
+
+  if (!account) return "";
+
+  const { number: accountNumber } = account;
   const secureNumber = makeAccountNumberSecure(accountNumber);
 
   return (

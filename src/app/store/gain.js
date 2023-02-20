@@ -34,7 +34,7 @@ export const createGain = createAsyncThunk(
   }
 );
 
-export const deleteGain = createAsyncThunk(
+export const deleteGainById = createAsyncThunk(
   "gain/delete",
   async (id, thunkAPI) => {
     try {
@@ -48,10 +48,29 @@ export const deleteGain = createAsyncThunk(
   }
 );
 
+export const deleteGainsByAccountId = createAsyncThunk(
+  "gain/deleteByAccount",
+  async (accountId, thunkAPI) => {
+    try {
+      const gains = thunkAPI.getState()?.gain?.entities;
+      if (!Array.isArray(gains) || gains.length === 0) {
+        thunkAPI.rejectWithValue("Gains are empty now. Nothing to delete.");
+      }
+      const gainsCopy = [...gains];
+      gainsCopy.forEach((gain) => {
+        if (gain.account_id === accountId) {
+          thunkAPI.dispatch(deleteGainById(gain._id));
+        }
+      });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 export const updateGain = createAsyncThunk(
   "gain/update",
   async (payload, thunkAPI) => {
-    console.log("updateGain");
     try {
       const { content } = await gainService.update(payload);
       return content;
@@ -87,13 +106,13 @@ const gainSlice = createSlice({
     [createGain.rejected]: (state, action) => {
       state.error = action.payload;
     },
-    [deleteGain.pending]: (state) => {
+    [deleteGainById.pending]: (state) => {
       state.error = null;
     },
-    [deleteGain.fulfilled]: (state, action) => {
+    [deleteGainById.fulfilled]: (state, action) => {
       state.entities = state.entities.filter((g) => g._id !== action.payload);
     },
-    [deleteGain.rejected]: (state, action) => {
+    [deleteGainById.rejected]: (state, action) => {
       state.error = action.payload;
     },
     [updateGain.pending]: (state) => {
@@ -107,6 +126,12 @@ const gainSlice = createSlice({
       state.entities = newGains;
     },
     [updateGain.rejected]: (state, action) => {
+      state.error = action.payload;
+    },
+    [deleteGainsByAccountId.pending]: (state) => {
+      state.error = null;
+    },
+    [deleteGainsByAccountId.rejected]: (state, action) => {
       state.error = action.payload;
     },
   },
