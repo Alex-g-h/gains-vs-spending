@@ -55,11 +55,15 @@ const AccountForm = () => {
   const isAddForm = !accountId; // otherwise it's the edit form
 
   useEffect(() => {
-    setPaymentsConverted(convertPayments(payments));
-
     if (currentAccount) {
       const { bank, number, credit } = currentAccount;
-      const newData = { bank, number, payment: initialPayment, credit };
+      const numberString = String(number);
+      const newData = {
+        bank,
+        number: numberString,
+        payment: initialPayment,
+        credit,
+      };
 
       if (paymentObj) {
         const paymentConverted = convertPayments([paymentObj]).at(0);
@@ -67,6 +71,10 @@ const AccountForm = () => {
       }
       setData(newData);
     }
+  }, [paymentObj]);
+
+  useEffect(() => {
+    setPaymentsConverted(convertPayments(payments));
   }, [paymentsLoading]);
 
   const handleChange = (target) => {
@@ -129,9 +137,10 @@ const AccountForm = () => {
 
     setLoading(true);
 
+    const { payment: paymentConverted, bank, number, credit } = data;
+    const numberNumber = Number(number);
+
     if (isAddForm) {
-      const { payment: paymentConverted, bank, number, credit } = data;
-      const numberNumber = Number(number);
       dispatch(
         createAccount({
           user_id: currentUserId,
@@ -145,12 +154,11 @@ const AccountForm = () => {
         .then(() => navigate(-1))
         .finally(() => setLoading(false));
     } else {
-      const { payment: paymentConverted, bank, number, credit } = data;
       const editAccount = {
         ...currentAccount,
         payment_id: paymentConverted.value,
         bank,
-        number,
+        number: numberNumber,
         credit,
       };
       dispatch(updateAccount(editAccount))
