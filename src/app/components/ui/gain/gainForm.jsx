@@ -5,7 +5,7 @@ import { validator } from "../../../utils/validator";
 import SpinLoading from "../spinLoading";
 import SelectField from "../../common/form/selectField";
 import { useDispatch, useSelector } from "react-redux";
-import { createGain } from "../../../store/gain";
+import { createGain, getGainById, updateGain } from "../../../store/gain";
 import { getCurrentUserId } from "../../../store/user";
 import { getAccountLoadingStatus, getAccounts } from "../../../store/account";
 
@@ -25,9 +25,7 @@ const GainForm = () => {
   const accounts = useSelector(getAccounts(currentUserId));
   const accountsLoading = useSelector(getAccountLoadingStatus());
   const [accountsConverted, setAccountsConverted] = useState([]);
-
-  // const currentAccount = useSelector(getAccountById(accountId));
-  // const accountObj = useSelector(getaccountById(currentAccount?.account_id));
+  const currentGain = useSelector(getGainById(gainId));
 
   const isAddForm = !gainId; // otherwise it's the edit form
 
@@ -57,6 +55,21 @@ const GainForm = () => {
     setAccountsConverted(convertAccounts(accounts));
   }, [accountsLoading]);
 
+  // initialize data for edit form
+  useEffect(() => {
+    if (currentGain) {
+      const { date, amount, account_id: accountId } = currentGain;
+      const amountString = String(amount);
+      const newData = {
+        date,
+        amount: amountString,
+        account: accountId,
+      };
+
+      setData(newData);
+    }
+  }, [currentGain]);
+
   useEffect(() => {
     validate();
   }, [data]);
@@ -64,7 +77,7 @@ const GainForm = () => {
   function convertAccounts(accounts) {
     return accounts.map((account) => ({
       value: account._id,
-      label: account.number,
+      label: String(account.number),
     }));
   }
 
@@ -84,12 +97,12 @@ const GainForm = () => {
     const isValid = validate();
     if (!isValid) return;
 
-    console.log("submit data", data);
     setLoading(true);
 
+    const { account, date, amount } = data;
+    const amountNumber = Number(amount);
+
     if (isAddForm) {
-      const { account, date, amount } = data;
-      const amountNumber = Number(amount);
       dispatch(
         createGain({
           user_id: currentUserId,
@@ -102,18 +115,16 @@ const GainForm = () => {
         .then(() => navigate(-1))
         .finally(() => setLoading(false));
     } else {
-      //   const { account: accountConverted, bank, number, credit } = data;
-      //   const editAccount = {
-      //     ...currentAccount,
-      //     account_id: accountConverted.value,
-      //     bank,
-      //     number,
-      //     credit,
-      //   };
-      //   dispatch(updateAccount(editAccount))
-      //     .unwrap()
-      //     .then(() => navigate(-1))
-      //     .finally(() => setLoading(false));
+      const editGain = {
+        ...currentGain,
+        account_id: account,
+        date,
+        amount: amountNumber,
+      };
+      dispatch(updateGain(editGain))
+        .unwrap()
+        .then(() => navigate(-1))
+        .finally(() => setLoading(false));
     }
   };
 

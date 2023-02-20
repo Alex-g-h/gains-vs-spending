@@ -21,13 +21,39 @@ export const createGain = createAsyncThunk(
   "gain/create",
   async (payload, thunkAPI) => {
     try {
-      console.log("createGain", payload);
       const gain = {
         _id: nanoid(28),
         ...payload,
       };
 
       const { content } = await gainService.create(gain);
+      return content;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const deleteGain = createAsyncThunk(
+  "gain/delete",
+  async (id, thunkAPI) => {
+    try {
+      const { content } = await gainService.delete(id);
+      return content === null
+        ? id
+        : thunkAPI.rejectWithValue(`Can't delete gain with ID: ${id}`);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateGain = createAsyncThunk(
+  "gain/update",
+  async (payload, thunkAPI) => {
+    console.log("updateGain");
+    try {
+      const { content } = await gainService.update(payload);
       return content;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -59,6 +85,28 @@ const gainSlice = createSlice({
       state.entities.push(action.payload);
     },
     [createGain.rejected]: (state, action) => {
+      state.error = action.payload;
+    },
+    [deleteGain.pending]: (state) => {
+      state.error = null;
+    },
+    [deleteGain.fulfilled]: (state, action) => {
+      state.entities = state.entities.filter((g) => g._id !== action.payload);
+    },
+    [deleteGain.rejected]: (state, action) => {
+      state.error = action.payload;
+    },
+    [updateGain.pending]: (state) => {
+      state.error = null;
+    },
+    [updateGain.fulfilled]: (state, action) => {
+      const newGains = state.entities.map((g) => {
+        if (g._id === action.payload._id) return action.payload;
+        return g;
+      });
+      state.entities = newGains;
+    },
+    [updateGain.rejected]: (state, action) => {
       state.error = action.payload;
     },
   },

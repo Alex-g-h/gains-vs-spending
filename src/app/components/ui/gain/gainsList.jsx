@@ -1,34 +1,39 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAccountLoadingStatus,
   // getAccounts
 } from "../../../store/account";
-import { getGains, getGainsLoadingStatus } from "../../../store/gain";
+import {
+  deleteGain,
+  getGains,
+  getGainsLoadingStatus,
+} from "../../../store/gain";
 import { getCurrentUserId } from "../../../store/user";
 import WithEditDelete from "../hoc/withEditDelete";
 import SpinLoading from "../spinLoading";
 import Gain from "./gain";
+import { useNavigate } from "react-router-dom";
 
 const GainsList = () => {
   const currentUserId = useSelector(getCurrentUserId());
   const accountsLoading = useSelector(getAccountLoadingStatus());
   const gains = useSelector(getGains(currentUserId));
   const gainsLoading = useSelector(getGainsLoadingStatus());
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const isLoading = accountsLoading || gainsLoading;
 
   if (isLoading) return <SpinLoading />;
 
   const handleEdit = (id) => {
-    console.log("handleEdit");
-    // navigate(`/account/${id}/edit`);
+    navigate(`/gain/${id}/edit`);
   };
 
   const handleDelete = (id) => {
     // TODO: add modal confirmation window
-    // dispatch(deleteAccount(id));
-    console.log("handleDelete");
+    dispatch(deleteGain(id));
   };
 
   return (

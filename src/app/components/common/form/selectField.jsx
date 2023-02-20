@@ -8,7 +8,7 @@ const SelectField = ({
   onChange,
   defaultOption,
   options,
-  error
+  error,
 }) => {
   const handleChange = ({ target }) => {
     onChange({ name: target.name, value: target.value });
@@ -33,13 +33,19 @@ const SelectField = ({
         value={value}
         onChange={handleChange}
       >
-        <option disabled value="">
+        <option
+          disabled
+          value=""
+        >
           {defaultOption}
         </option>
         {optionsArray &&
           optionsArray.length > 0 &&
           optionsArray.map((option) => (
-            <option value={option.value} key={option.value}>
+            <option
+              value={option.value}
+              key={option.value}
+            >
               {option.label}
             </option>
           ))}
@@ -56,7 +62,7 @@ SelectField.propTypes = {
   onChange: PropTypes.func.isRequired,
   defaultOption: PropTypes.string.isRequired,
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 export default SelectField;

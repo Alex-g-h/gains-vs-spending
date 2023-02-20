@@ -63,6 +63,10 @@ const routes = (isLoggedIn, location) => [
         path: "add",
         element: <GainForm />,
       },
+      {
+        path: ":gainId/edit",
+        element: <GainForm />,
+      },
     ],
   },
   {
