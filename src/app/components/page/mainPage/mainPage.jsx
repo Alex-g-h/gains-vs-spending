@@ -11,14 +11,12 @@ const MainPage = () => {
 
   return (
     <div className="d-flex flex-column">
-      <div className="container">
-        <div className="d-flex flex-wrap justify-content-evenly">
-          <Gains />
-          <Accounts />
-          <Spending />
-        </div>
+      <div className="d-flex flex-wrap justify-content-evenly">
+        <Gains />
+        <Accounts />
+        <Spending />
       </div>
-      <div className="container-fluid">
+      <div className="container-fluid mb-2">
         <Analytics />
       </div>
     </div>
