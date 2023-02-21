@@ -34,7 +34,7 @@ const AccountsList = () => {
   };
 
   return (
-    <div>
+    <div className="list-block">
       {accounts?.map((a) => (
         <WithEditDelete
           key={a._id}

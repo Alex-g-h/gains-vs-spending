@@ -10,16 +10,18 @@ const MainPage = () => {
   // TODO: refactor headers for Gains, Accounts, Spending with HOC
 
   return (
-    <div className="d-flex flex-column">
-      <div className="d-flex flex-wrap justify-content-evenly">
-        <Gains />
-        <Accounts />
-        <Spending />
+    <>
+      <div className="d-flex flex-column">
+        <div className="d-flex flex-wrap justify-content-evenly">
+          <Gains />
+          <Accounts />
+          <Spending />
+        </div>
+        <div className="container-fluid mb-2">
+          <Analytics />
+        </div>
       </div>
-      <div className="container-fluid mb-2">
-        <Analytics />
-      </div>
-    </div>
+    </>
   );
 };
 

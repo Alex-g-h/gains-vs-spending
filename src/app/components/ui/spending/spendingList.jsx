@@ -34,7 +34,7 @@ const SpendingList = () => {
   };
 
   return (
-    <div>
+    <div className="list-block">
       {spending?.map((s) => (
         <WithEditDelete
           key={s._id}
@@ -42,7 +42,6 @@ const SpendingList = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
         >
-          {/* {(expenseId, amount, date, accountId)} */}
           <SpendingRow
             accountId={s.account_id}
             expenseId={s.expense_id}

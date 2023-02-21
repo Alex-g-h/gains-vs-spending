@@ -37,7 +37,7 @@ const GainsList = () => {
   };
 
   return (
-    <div>
+    <div className="list-block">
       {gains?.map((g) => (
         <WithEditDelete
           key={g._id}

@@ -10,6 +10,7 @@ import routes from "./routes";
 import { useSelector } from "react-redux";
 import { getIsLoggedIn } from "./store/user";
 import AppLoader from "./hoc/appLoader";
+import "./app.css";
 
 function App() {
   const isLoggedIn = useSelector(getIsLoggedIn());
