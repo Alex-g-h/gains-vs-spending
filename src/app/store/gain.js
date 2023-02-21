@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import gainService from "../services/gain.service";
+import { sortObjectByDate } from "../utils/sort";
 
 const initialState = {
   entities: [],
@@ -153,25 +154,10 @@ export const getGains = (userId) => (state) => {
     return res;
   }, []);
 
-  return gains?.sort(sortGainByDate);
+  return gains?.sort(sortObjectByDate);
 };
 
 export const getGainById = (id) => (state) =>
   state[name].entities?.find((g) => g._id === id);
-
-// sort by date
-function sortGainByDate(a, b) {
-  const nameA = a.date.toUpperCase(); // ignore upper and lowercase
-  const nameB = b.date.toUpperCase(); // ignore upper and lowercase
-  if (nameA < nameB) {
-    return -1;
-  }
-  if (nameA > nameB) {
-    return 1;
-  }
-
-  // names must be equal
-  return 0;
-}
 
 export default gainReducer;

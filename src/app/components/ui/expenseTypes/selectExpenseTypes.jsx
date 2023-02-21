@@ -1,9 +1,16 @@
 import React from "react";
 import Select from "react-select";
 import PropTypes from "prop-types";
-import PaymentSystem from "../../ui/paymentSystem";
+import ExpenseType from "./expenseType";
 
-const SelectPayment = ({ options, onChange, name, label, value, error }) => {
+const SelectExpenseTypes = ({
+  options,
+  onChange,
+  name,
+  label,
+  value,
+  error,
+}) => {
   const handleChange = (data) => {
     onChange({ name, value: { ...data } });
   };
@@ -18,12 +25,13 @@ const SelectPayment = ({ options, onChange, name, label, value, error }) => {
       <div className="input-group has-validation">
         <Select
           className={getInputClasses()}
+          maxMenuHeight={170}
           name={name}
           options={options}
           onChange={handleChange}
           value={value}
           getOptionLabel={(option) => (
-            <PaymentSystem paymentId={option.value} />
+            <ExpenseType expenseTypeId={option.value} />
           )}
         />
         <div className="invalid-feedback">{error}</div>
@@ -32,7 +40,7 @@ const SelectPayment = ({ options, onChange, name, label, value, error }) => {
   );
 };
 
-SelectPayment.propTypes = {
+SelectExpenseTypes.propTypes = {
   name: PropTypes.string,
   label: PropTypes.string,
   onChange: PropTypes.func.isRequired,
@@ -41,4 +49,4 @@ SelectPayment.propTypes = {
   error: PropTypes.string,
 };
 
-export default SelectPayment;
+export default SelectExpenseTypes;

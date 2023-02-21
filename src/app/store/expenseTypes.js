@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import paymentService from "../services/payment.service";
+import expenseTypesService from "../services/expenseTypes.service";
 import sortObjectByName from "../utils/sort/sortObjectByName";
 
 const initialState = {
@@ -8,11 +8,11 @@ const initialState = {
   error: null,
 };
 
-export const loadPayments = createAsyncThunk(
-  "payment/load",
+export const loadExpenseTypes = createAsyncThunk(
+  "expenseTypes/load",
   async (thunkAPI) => {
     try {
-      const data = await paymentService.get();
+      const data = await expenseTypesService.get();
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
@@ -20,40 +20,41 @@ export const loadPayments = createAsyncThunk(
   }
 );
 
-const paymentSlice = createSlice({
-  name: "payment",
+const expenseTypesSlice = createSlice({
+  name: "expenseTypes",
   initialState,
   extraReducers: {
-    [loadPayments.pending]: (state) => {
+    [loadExpenseTypes.pending]: (state) => {
       state.isLoading = true;
       state.error = null;
     },
-    [loadPayments.fulfilled]: (state, action) => {
+    [loadExpenseTypes.fulfilled]: (state, action) => {
       state.entities = action.payload;
       state.isLoading = false;
     },
-    [loadPayments.rejected]: (state, action) => {
+    [loadExpenseTypes.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
   },
 });
 
-const { reducer: paymentReducer, name } = paymentSlice;
+const { reducer: expenseTypesReducer, name } = expenseTypesSlice;
 
 // Selectors
-export const getPaymentLoadingStatus = () => (state) => state[name].isLoading;
+export const getExpenseTypesLoadingStatus = () => (state) =>
+  state[name].isLoading;
 
 // get sorted payment systems
-export const getPayments = () => (state) => {
+export const getExpenseTypes = () => (state) => {
   const sortedArray = [...state[name].entities];
   return sortedArray?.sort(sortObjectByName);
 };
 
-export const getPaymentsId = () => (state) =>
+export const getExpenseTypesId = () => (state) =>
   state[name].entities?.map((p) => p._id);
 
-export const getPaymentById = (id) => (state) =>
+export const getExpenseTypesById = (id) => (state) =>
   state[name].entities?.find((p) => p._id === id);
 
-export default paymentReducer;
+export default expenseTypesReducer;

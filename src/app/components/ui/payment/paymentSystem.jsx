@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getPaymentById } from "../../store/payment";
+import { getPaymentById } from "../../../store/payment";
 import PropTypes from "prop-types";
 
 const PaymentSystem = ({ paymentId }) => {

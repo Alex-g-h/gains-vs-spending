@@ -8,7 +8,10 @@ const TextAreaField = ({ label, name, value, onChange }) => {
 
   return (
     <div className="mb-4 align-self-right">
-      <label htmlFor={name} className="form-label">
+      <label
+        htmlFor={name}
+        className="form-label"
+      >
         {label}
       </label>
       <textarea
@@ -26,8 +29,9 @@ const TextAreaField = ({ label, name, value, onChange }) => {
 TextAreaField.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  rows: PropTypes.string,
 };
 
 export default TextAreaField;

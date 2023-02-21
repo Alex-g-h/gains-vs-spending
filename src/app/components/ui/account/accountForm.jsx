@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import TextField from "../../common/form/textField";
-import SelectPayment from "../../common/form/selectPayment";
+import SelectPayment from "../payment/selectPayment";
 import { validator } from "../../../utils/validator";
 import { useNavigate, useParams } from "react-router-dom";
 import CheckBoxField from "../../common/form/checkBoxField";
@@ -54,6 +54,7 @@ const AccountForm = () => {
 
   const isAddForm = !accountId; // otherwise it's the edit form
 
+  // initialize data for edit form
   useEffect(() => {
     if (currentAccount) {
       const { bank, number, credit } = currentAccount;

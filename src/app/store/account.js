@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import accountService from "../services/account.service";
 import { deleteGainsByAccountId } from "./gain";
+import { deleteSpendingsByAccountId } from "./spending";
 
 const initialState = {
   entities: [],
@@ -46,7 +47,8 @@ export const deleteAccount = createAsyncThunk(
       if (content === null) {
         // delete all gains correspond to account
         thunkAPI.dispatch(deleteGainsByAccountId(id));
-        // TODO: delete all spending correspond to account
+        // delete all spending correspond to account
+        thunkAPI.dispatch(deleteSpendingsByAccountId(id));
         return id;
       } else {
         return thunkAPI.rejectWithValue(`Can't delete account with ID: ${id}`);

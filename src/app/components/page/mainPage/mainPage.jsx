@@ -2,7 +2,7 @@ import React from "react";
 import Accounts from "../../ui/account";
 import Analytics from "./analytics";
 import Gains from "../../ui/gain";
-import Spending from "./spending";
+import Spending from "../../ui/spending";
 
 const MainPage = () => {
   // TODO: add icons to headers Gains, Accounts, Spending
@@ -18,7 +18,7 @@ const MainPage = () => {
           <Spending />
         </div>
       </div>
-      <div className="container-fluid mt-4">
+      <div className="container-fluid">
         <Analytics />
       </div>
     </div>

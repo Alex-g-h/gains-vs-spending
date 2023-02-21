@@ -5,6 +5,8 @@ import { loadAccounts } from "../store/account";
 import { loadPayments } from "../store/payment";
 import { getIsLoggedIn } from "../store/user";
 import { loadGains } from "../store/gain";
+import { loadExpenseTypes } from "../store/expenseTypes";
+import { loadSpending } from "../store/spending";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -15,6 +17,8 @@ const AppLoader = ({ children }) => {
       dispatch(loadAccounts());
       dispatch(loadPayments());
       dispatch(loadGains());
+      dispatch(loadExpenseTypes());
+      dispatch(loadSpending());
     }
   }, [isLoggedIn]);
 
