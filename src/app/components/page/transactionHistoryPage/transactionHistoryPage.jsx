@@ -80,9 +80,12 @@ const TransactionHistoryPage = () => {
   useEffect(() => {
     const pageCount = Math.ceil(count / pageSize);
     if (pageCount < currentPageNumber) {
-      setCurrentPageNumber(currentPageNumber - 1);
+      const newPageNumber = currentPageNumber - 1;
+      setCurrentPageNumber(newPageNumber <= 0 ? 1 : newPageNumber);
     }
   });
+
+  console.log(currentPageNumber);
 
   return (
     <>
