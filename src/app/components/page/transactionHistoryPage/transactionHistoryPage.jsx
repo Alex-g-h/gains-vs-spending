@@ -123,12 +123,16 @@ const TransactionHistoryPage = () => {
         <div className="align-self-center flex-grow-1">
           <h4>Transaction history</h4>
         </div>
-        <div className="p-2 btn border mx-1">
+        <button className="p-2 btn border mx-1">
           Filter <i className="bi bi-filter"></i>
-        </div>
-        <div className="p-2 btn border mx-1">
+        </button>
+        <button
+          className="p-2 btn border mx-1"
+          disabled
+          type="button"
+        >
           Add transaction <i className="bi bi-plus-circle-fill"></i>
-        </div>
+        </button>
       </div>
       {isLoading ? (
         <SpinLoading />
