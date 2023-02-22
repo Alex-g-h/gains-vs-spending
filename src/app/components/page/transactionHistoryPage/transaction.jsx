@@ -1,11 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAccountById } from "../../../store/account";
 import { getPaymentById } from "../../../store/payment";
 import { getExpenseTypesById } from "../../../store/expenseTypes";
 import makeAccountNumberSecure from "../../../utils/makeAccountNumberSecure";
 import WithEditDelete from "../../ui/hoc/withEditDelete";
+import { useNavigate } from "react-router-dom";
+import { deleteGainById } from "../../../store/gain";
+import { deleteSpendingById } from "../../../store/spending";
 
 const Transaction = ({
   accountId,
@@ -16,6 +19,8 @@ const Transaction = ({
   amount,
   comment,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const account = useSelector(getAccountById(accountId));
   const payment = useSelector(getPaymentById(account?.payment_id));
   const paymentImageSrc = payment?.image;
@@ -32,15 +37,18 @@ const Transaction = ({
   const expenseTypeImageSrc = expense?.image;
   const expenseName = expense?.name;
 
+  // TODO: stay on the same page after edit
   const handleEdit = (id) => {
-    console.log("edit");
-    // navigate(`/account/${id}/edit`);
+    if (id?.gainId) navigate(`/gain/${id.gainId}/edit`);
+    if (id?.spendingId) navigate(`/spending/${id.spendingId}/edit`);
   };
 
+  // TODO: stay on the same page after delete
   const handleDelete = (id) => {
     // TODO: add modal confirmation window
-    // dispatch(deleteAccount(id));
-    console.log("delete");
+    if (id?.gainId) dispatch(deleteGainById(id.gainId));
+    if (id?.spendingId) dispatch(deleteSpendingById(id.spendingId));
+    navigate(0);
   };
 
   return (

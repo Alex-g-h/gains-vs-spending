@@ -57,8 +57,6 @@ const TransactionHistoryPage = () => {
     setData(commonData);
   }, [accountsLoadingStatus, gainsLoadingStatus, spendingLoadingStatus]);
 
-  console.log(data);
-
   const filteredTransactions = data;
 
   const count = filteredTransactions ? filteredTransactions.length : 0;
@@ -80,8 +78,11 @@ const TransactionHistoryPage = () => {
   useEffect(() => {
     const pageCount = Math.ceil(count / pageSize);
     if (pageCount < currentPageNumber) {
-      const newPageNumber = currentPageNumber - 1;
-      setCurrentPageNumber(newPageNumber <= 0 ? 1 : newPageNumber);
+      let newPageNumber = currentPageNumber - 1;
+      newPageNumber = newPageNumber <= 0 ? 1 : newPageNumber;
+      if (newPageNumber !== currentPageNumber) {
+        setCurrentPageNumber(newPageNumber);
+      }
     }
   });
 
