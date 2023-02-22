@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { getAccountLoadingStatus } from "../../../store/account";
-import { getGains, getGainsLoadingStatus } from "../../../store/gain";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteGainById,
+  getGains,
+  getGainsLoadingStatus,
+} from "../../../store/gain";
 import {
   getSpendings,
   getSpendingLoadingStatus,
+  deleteSpendingById,
 } from "../../../store/spending";
 import { getCurrentUserId } from "../../../store/user";
 import { paginate } from "../../../utils/paginate";
@@ -14,8 +18,8 @@ import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
 
 const TransactionHistoryPage = () => {
+  const dispatch = useDispatch();
   const currentUserId = useSelector(getCurrentUserId());
-  const accountsLoadingStatus = useSelector(getAccountLoadingStatus());
   const gains = useSelector(getGains(currentUserId));
   const gainsLoadingStatus = useSelector(getGainsLoadingStatus());
   const spending = useSelector(getSpendings(currentUserId));
@@ -25,8 +29,7 @@ const TransactionHistoryPage = () => {
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [data, setData] = useState([]);
 
-  const isLoading =
-    accountsLoadingStatus || gainsLoadingStatus || spendingLoadingStatus;
+  const isLoading = gainsLoadingStatus || spendingLoadingStatus;
 
   useEffect(() => {
     // accumulate data from gains and from spending in common format
@@ -55,9 +58,11 @@ const TransactionHistoryPage = () => {
     );
 
     setData(commonData);
-  }, [accountsLoadingStatus, gainsLoadingStatus, spendingLoadingStatus]);
+  }, [gainsLoadingStatus, spendingLoadingStatus]);
 
   const filteredTransactions = data;
+
+  // TODO: sort asc/desc data by amount, date
 
   const count = filteredTransactions ? filteredTransactions.length : 0;
   const transactionsCrop = paginate(
@@ -76,7 +81,10 @@ const TransactionHistoryPage = () => {
    * current page force change to previous one.
    */
   useEffect(() => {
+    if (isLoading || count === 0) return;
+
     const pageCount = Math.ceil(count / pageSize);
+
     if (pageCount < currentPageNumber) {
       let newPageNumber = currentPageNumber - 1;
       newPageNumber = newPageNumber <= 0 ? 1 : newPageNumber;
@@ -84,9 +92,30 @@ const TransactionHistoryPage = () => {
         setCurrentPageNumber(newPageNumber);
       }
     }
-  });
+    // });
+  }, [count]);
 
-  console.log(currentPageNumber);
+  /**
+   * Delete transaction data
+   * @param {*} id { gainId, spendingId } object containing only one ID
+   */
+  const handleDelete = (id) => {
+    // TODO: add modal confirmation window
+    if (id?.gainId) {
+      const newData = filteredTransactions.filter(
+        (f) => f.gainId !== id.gainId
+      );
+      setData(newData);
+      dispatch(deleteGainById(id.gainId));
+    }
+    if (id?.spendingId) {
+      const newData = filteredTransactions.filter(
+        (f) => f.spendingId !== id?.spendingId
+      );
+      setData(newData);
+      dispatch(deleteSpendingById(id.spendingId));
+    }
+  };
 
   return (
     <>
@@ -107,7 +136,10 @@ const TransactionHistoryPage = () => {
         transactionsCrop &&
         transactionsCrop.length > 0 && (
           <div className="d-flex flex-column">
-            <TransactionHistoryList data={transactionsCrop} />
+            <TransactionHistoryList
+              data={transactionsCrop}
+              onDelete={handleDelete}
+            />
             <div className="d-flex justify-content-center">
               <Pagination
                 itemsCount={count}

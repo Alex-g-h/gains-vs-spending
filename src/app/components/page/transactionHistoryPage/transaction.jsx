@@ -1,14 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getAccountById } from "../../../store/account";
 import { getPaymentById } from "../../../store/payment";
 import { getExpenseTypesById } from "../../../store/expenseTypes";
 import makeAccountNumberSecure from "../../../utils/makeAccountNumberSecure";
 import WithEditDelete from "../../ui/hoc/withEditDelete";
 import { useNavigate } from "react-router-dom";
-import { deleteGainById } from "../../../store/gain";
-import { deleteSpendingById } from "../../../store/spending";
 
 const Transaction = ({
   accountId,
@@ -18,9 +16,9 @@ const Transaction = ({
   date,
   amount,
   comment,
+  onDelete,
 }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const account = useSelector(getAccountById(accountId));
   const payment = useSelector(getPaymentById(account?.payment_id));
   const paymentImageSrc = payment?.image;
@@ -37,18 +35,10 @@ const Transaction = ({
   const expenseTypeImageSrc = expense?.image;
   const expenseName = expense?.name;
 
-  // TODO: stay on the same page after edit
+  // TODO: stay on the same page after edit transaction
   const handleEdit = (id) => {
     if (id?.gainId) navigate(`/gain/${id.gainId}/edit`);
     if (id?.spendingId) navigate(`/spending/${id.spendingId}/edit`);
-  };
-
-  // TODO: stay on the same page after delete
-  const handleDelete = (id) => {
-    // TODO: add modal confirmation window
-    if (id?.gainId) dispatch(deleteGainById(id.gainId));
-    if (id?.spendingId) dispatch(deleteSpendingById(id.spendingId));
-    navigate(0);
   };
 
   return (
@@ -88,7 +78,7 @@ const Transaction = ({
         <WithEditDelete
           id={{ gainId, spendingId }}
           onEdit={handleEdit}
-          onDelete={handleDelete}
+          onDelete={onDelete}
         >
           <div className="mx-1">
             <strong className={incomeOrOutcomeClass}>
@@ -109,6 +99,7 @@ Transaction.propTypes = {
   date: PropTypes.string,
   amount: PropTypes.string,
   comment: PropTypes.string,
+  onDelete: PropTypes.func,
 };
 
 export default Transaction;

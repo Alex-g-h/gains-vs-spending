@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Transaction from "./transaction";
 
-const TransactionHistoryList = ({ data }) => {
+const TransactionHistoryList = ({ data, onDelete }) => {
   return (
     <div>
       {data?.map((d) => (
@@ -13,6 +13,7 @@ const TransactionHistoryList = ({ data }) => {
           <Transaction
             {...d}
             amount={String(d.amount)}
+            onDelete={onDelete}
           />
         </div>
       ))}
@@ -22,6 +23,7 @@ const TransactionHistoryList = ({ data }) => {
 
 TransactionHistoryList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
+  onDelete: PropTypes.func,
 };
 
 export default TransactionHistoryList;
