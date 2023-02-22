@@ -9,9 +9,13 @@ const MainPage = () => {
 
   // TODO: refactor headers for Gains, Accounts, Spending with HOC
 
+  // TODO: add placeholders instead of spin loading status
+
+  // TODO: add "Back" button to input/update forms
+
   return (
     <>
-      <div className="d-flex flex-column">
+      <div className="d-flex flex-column ">
         <div className="d-flex flex-wrap justify-content-evenly">
           <Gains />
           <Accounts />

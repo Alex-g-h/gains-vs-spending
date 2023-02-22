@@ -9,7 +9,7 @@ const NavBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());
 
   return (
-    <nav className="navbar navbar-expand-sm  bg-light mb-3">
+    <nav className="navbar navbar-expand-sm bg-light mb-3">
       <div className="container-fluid">
         <NavLink
           className="navbar-brand"

@@ -28,7 +28,7 @@ WithEditDelete.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]),
-  id: PropTypes.string,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   onEdit: PropTypes.func,
   onDelete: PropTypes.func,
 };
