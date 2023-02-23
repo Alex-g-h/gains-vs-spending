@@ -11,7 +11,7 @@ const Gains = () => {
   };
 
   return (
-    <div className="border rounded p-1 mb-2 mx-2">
+    <div className="border rounded p-1 mb-2 mx-1">
       <CaptionWithAdd
         caption="Gains"
         handleAdd={handleAdd}

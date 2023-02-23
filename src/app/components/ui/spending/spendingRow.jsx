@@ -16,8 +16,6 @@ const SpendingRow = ({ expenseId, amount, date, accountId }) => {
   const { number: accountNumber } = account;
   const secureNumber = makeAccountNumberSecure(accountNumber);
 
-  // TODO: adaptive design (remove account number, shorter secure account number)
-
   return (
     <div className="d-flex align-items-center justify-content-between">
       <img
@@ -26,8 +24,11 @@ const SpendingRow = ({ expenseId, amount, date, accountId }) => {
         alt="expense type"
         height="50"
       />
-      <div className="ms-1 fw-light">{date}</div>
-      <div className="mx-1 flex-grow-1 ">{secureNumber}</div>
+      <div className="ms-1 fw-light d-none d-md-block">{date}</div>
+      <div className="mx-1 flex-grow-1 d-flex justify-content-center">
+        <div className="d-none d-lg-block">{secureNumber.prefix}</div>
+        <div className="d-none d-lg-block">{secureNumber.lastDigits}</div>
+      </div>
       <div className="mx-1">
         <strong>
           {amount} {"\u0024"}
@@ -36,19 +37,6 @@ const SpendingRow = ({ expenseId, amount, date, accountId }) => {
     </div>
   );
 };
-
-// <div className="d-flex align-items-center justify-content-between">
-//   <img
-//     className="ms-1"
-//     src={paymentImageSrc}
-//     alt="payment system"
-//     height="24"
-//   />
-//   <div className="mx-1 flex-grow-1">{bankName}</div>
-//   <div className="mx-1">
-//     <strong>{secureNumber}</strong>
-//   </div>
-// </div>;
 
 SpendingRow.propTypes = {
   expenseId: PropTypes.string,

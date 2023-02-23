@@ -8,8 +8,6 @@ const Account = ({ paymentId, number, bankName }) => {
   const { image: paymentImageSrc } = useSelector(getPaymentById(paymentId));
   const secureNumber = makeAccountNumberSecure(number);
 
-  // TODO: adaptive design (remove bank name, shorter secure account number)
-
   return (
     <div className="d-flex align-items-center justify-content-between">
       <img
@@ -18,9 +16,16 @@ const Account = ({ paymentId, number, bankName }) => {
         alt="payment system"
         height="24"
       />
-      <div className="mx-1 flex-grow-1">{bankName}</div>
+      <div className="mx-1 flex-grow-1 d-none d-md-block">{bankName}</div>
       <div className="mx-1">
-        <strong>{secureNumber}</strong>
+        <div className="d-flex justify-content-center">
+          <div className="d-none d-lg-block">
+            <strong>{secureNumber.prefix}</strong>
+          </div>
+          <div>
+            <strong>{secureNumber.lastDigits}</strong>
+          </div>
+        </div>
       </div>
     </div>
   );

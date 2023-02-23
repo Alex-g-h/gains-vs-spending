@@ -53,7 +53,7 @@ const Transaction = ({
               alt="payment system"
               height="30"
             />
-            <strong>{secureNumber}</strong>
+            <strong>{secureNumber.prefix + secureNumber.lastDigits}</strong>
           </div>
           <div className="fw-semibold">{date}</div>
         </div>

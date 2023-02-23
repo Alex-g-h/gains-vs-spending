@@ -14,8 +14,13 @@ const Gain = ({ amount, date, accountId }) => {
 
   return (
     <div className="d-flex align-items-center justify-content-between">
-      <div className="ms-1 fw-light">{date}</div>
-      <div className="mx-1 flex-grow-1 ">{secureNumber}</div>
+      <div className="d-flex justify-content-between">
+        <div className="ms-1 fw-light d-none d-sm-block">{date}</div>
+        <div className="mx-1 flex-grow-1 d-flex justify-content-center">
+          <div className="d-none d-lg-block">{secureNumber.prefix}</div>
+          <div>{secureNumber.lastDigits}</div>
+        </div>
+      </div>
       <div className="mx-1">
         <strong>
           {amount} {"\u0024"}
