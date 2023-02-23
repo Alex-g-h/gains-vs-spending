@@ -5,7 +5,8 @@ import { getCurrentUserData } from "../../store/user";
 
 const NavProfile = () => {
   const [isOpen, setOpen] = useState(false);
-  const { name: userName } = useSelector(getCurrentUserData());
+  const currentUser = useSelector(getCurrentUserData());
+  const userName = currentUser?.name;
 
   const toggleDropdown = () => {
     setOpen((prevState) => !prevState);
