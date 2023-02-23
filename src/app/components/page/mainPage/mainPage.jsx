@@ -13,6 +13,8 @@ const MainPage = () => {
 
   // TODO: [???] add "Back" button to input/update forms
 
+  // TODO: Add toast error/warning messages
+
   return (
     <>
       <div className="d-flex flex-column ">
