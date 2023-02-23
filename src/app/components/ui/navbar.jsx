@@ -39,7 +39,6 @@ const NavBar = () => {
           {isLoggedIn ? (
             <>
               <ul
-                // className="nav nav-pills me-auto"
                 className="navbar-nav me-auto mb-2 mb-lg-0"
                 role="tablist"
               >

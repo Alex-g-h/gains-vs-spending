@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import useModalDelete from "../../../hooks/useModalDelete";
 import {
   deleteGainById,
   getGains,
@@ -18,7 +19,6 @@ import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
 
 const TransactionHistoryPage = () => {
-  const dispatch = useDispatch();
   const currentUserId = useSelector(getCurrentUserId());
   const gains = useSelector(getGains(currentUserId));
   const gainsLoadingStatus = useSelector(getGainsLoadingStatus());
@@ -28,6 +28,10 @@ const TransactionHistoryPage = () => {
   const pageSize = 3;
   const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [data, setData] = useState([]);
+
+  const modalNameForId = "History";
+  const { modalConfirmationForm, setModalDataToHandle } =
+    useModalDelete(modalNameForId);
 
   const isLoading = gainsLoadingStatus || spendingLoadingStatus;
 
@@ -97,23 +101,54 @@ const TransactionHistoryPage = () => {
 
   /**
    * Delete transaction data
-   * @param {*} id { gainId, spendingId } object containing only one ID
+   * @param {*} id { gainId, spendingId } object contains only one ID
    */
   const handleDelete = (id) => {
-    // TODO: add modal confirmation window
+    // check if pressed button corresponds to gain item
     if (id?.gainId) {
+      // modify local data in state
       const newData = filteredTransactions.filter(
         (f) => f.gainId !== id.gainId
       );
-      setData(newData);
-      dispatch(deleteGainById(id.gainId));
+      const handleDataState = {
+        func: setData,
+        needDispatch: false,
+        param: newData,
+        itemName: "gain",
+      };
+
+      // modify data in store
+      const handleDataStore = {
+        func: deleteGainById,
+        needDispatch: true,
+        param: id.gainId,
+        itemName: "gain",
+      };
+
+      setModalDataToHandle([handleDataState, handleDataStore]);
     }
+
+    // check if pressed button corresponds to spending item
     if (id?.spendingId) {
+      // modify local data in state
       const newData = filteredTransactions.filter(
         (f) => f.spendingId !== id?.spendingId
       );
-      setData(newData);
-      dispatch(deleteSpendingById(id.spendingId));
+      const handleDataState = {
+        func: setData,
+        needDispatch: false,
+        param: newData,
+        itemName: "spending",
+      };
+
+      // modify data in store
+      const handleDataStore = {
+        func: deleteSpendingById,
+        needDispatch: true,
+        param: id.spendingId,
+        itemName: "spending",
+      };
+      setModalDataToHandle([handleDataState, handleDataStore]);
     }
   };
 
@@ -123,7 +158,11 @@ const TransactionHistoryPage = () => {
         <div className="align-self-center flex-grow-1">
           <h4>Transaction history</h4>
         </div>
-        <button className="p-2 btn border mx-1">
+        <button
+          className="p-2 btn border mx-1"
+          disabled
+          type="button"
+        >
           Filter <i className="bi bi-filter"></i>
         </button>
         <button
@@ -140,9 +179,11 @@ const TransactionHistoryPage = () => {
         transactionsCrop &&
         transactionsCrop.length > 0 && (
           <div className="d-flex flex-column">
+            {modalConfirmationForm}
             <TransactionHistoryList
               data={transactionsCrop}
               onDelete={handleDelete}
+              modalNameId={modalNameForId}
             />
             <div className="d-flex justify-content-center">
               <Pagination

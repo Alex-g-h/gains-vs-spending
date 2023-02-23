@@ -1,6 +1,7 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useModalDelete from "../../../hooks/useModalDelete";
 import {
   deleteAccount,
   getAccountLoadingStatus,
@@ -17,8 +18,11 @@ const AccountsList = () => {
   const accounts = useSelector(getAccounts(currentUserId));
   const accountLoadingStatus = useSelector(getAccountLoadingStatus());
   const paymentsLoadingStatus = useSelector(getPaymentLoadingStatus());
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const modalNameForId = "Accounts";
+  const { modalConfirmationForm, setModalDataToHandle } =
+    useModalDelete(modalNameForId);
 
   const isLoading = accountLoadingStatus || paymentsLoadingStatus;
 
@@ -29,18 +33,25 @@ const AccountsList = () => {
   };
 
   const handleDelete = (id) => {
-    // TODO: add modal confirmation window
-    dispatch(deleteAccount(id));
+    const data = {
+      func: deleteAccount,
+      needDispatch: true,
+      param: id,
+      itemName: "account",
+    };
+    setModalDataToHandle(data);
   };
 
   return (
     <div className="list-block">
+      {modalConfirmationForm}
       {accounts?.map((a) => (
         <WithEditDelete
           key={a._id}
           id={a._id}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          modalNameId={modalNameForId}
         >
           <Account
             paymentId={a.payment_id}

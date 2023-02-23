@@ -17,6 +17,7 @@ const Transaction = ({
   amount,
   comment,
   onDelete,
+  modalNameId,
 }) => {
   const navigate = useNavigate();
   const account = useSelector(getAccountById(accountId));
@@ -79,6 +80,7 @@ const Transaction = ({
           id={{ gainId, spendingId }}
           onEdit={handleEdit}
           onDelete={onDelete}
+          modalNameId={modalNameId}
         >
           <div className="mx-1">
             <strong className={incomeOrOutcomeClass}>
@@ -100,6 +102,7 @@ Transaction.propTypes = {
   amount: PropTypes.string,
   comment: PropTypes.string,
   onDelete: PropTypes.func,
+  modalNameId: PropTypes.string,
 };
 
 export default Transaction;
