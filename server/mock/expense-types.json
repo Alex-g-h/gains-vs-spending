@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "AgT5Uy_BeK6kYbQTCvDc0qx9k7gr",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F7-car.png?alt=media&token=0a8951e5-1015-4b10-b875-0e4602a4a755",
+    "name": "Car"
+  },
+  {
+    "_id": "FLj6ma6UI0yI3nE5dWYYTCJSpNof",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F5-medicine.png?alt=media&token=2c647f4b-3cd6-43a3-8981-dbe508cc9deb",
+    "name": "Medicine"
+  },
+  {
+    "_id": "JoInlRp3smkaI4mb8za_j7WBT0t0",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F1-loan.png?alt=media&token=ddd0ba02-b39b-4935-a61f-c5f36acd9544",
+    "name": "Loan"
+  },
+  {
+    "_id": "JouB-B5aV7yAWgPBieQ5huzjmFmY",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F4-sport.png?alt=media&token=fb8b0c8b-c0f4-44c4-9b68-e2cc9b7f9c3f",
+    "name": "Sport"
+  },
+  {
+    "_id": "Q6XRxJpYkgSIBm4mHtVLVf3tEETb",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F8-clothes.png?alt=media&token=24cbaf41-5305-409b-bc33-707c8cb44c30",
+    "name": "Clothes"
+  },
+  {
+    "_id": "T-YtCXdmCyLa2qFE9OGWcy3vsWzY",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F9-appliance.png?alt=media&token=582e45e2-4991-4602-8bb4-7e0ce98b517f",
+    "name": "Appliance"
+  },
+  {
+    "_id": "UNngZteGA2xjkqsHhyqlFXH-8Bfu",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F6-communication.png?alt=media&token=9b25a314-4188-4e90-9bfe-9c97cf215370",
+    "name": "Communication"
+  },
+  {
+    "_id": "bzMS1V9-0pLfDFu5zPC_QLBFv7rW",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F10-other.png?alt=media&token=33c70479-a8d7-4041-b618-2161d154ffaa",
+    "name": "Other"
+  },
+  {
+    "_id": "hp6Cwy7UNREyi98XSg6RnFMSLe2x",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F3-utility.png?alt=media&token=e7b14244-172e-4b28-897b-ca3826b05e34",
+    "name": "Utility"
+  },
+  {
+    "_id": "iwZDEInMQt9PPMVWcklhLmC2xtTP",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/expense-types%2F2-grocery.png?alt=media&token=6d622c93-df05-4a0e-9582-e85c2dd68624",
+    "name": "Grocery"
+  }
+]

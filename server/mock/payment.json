@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "0heDxMvrCVL_5Wl5VFydEu76f5Dp",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F2-discover_200x119.png?alt=media&token=67dc78b1-e5b4-4aa9-99b9-9449590e2e0d",
+    "name": "Discover"
+  },
+  {
+    "_id": "NHp3mleCtUrmjvHz5CG_PqgV_K-S",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F1-americanexpress_200x119.png?alt=media&token=e6018123-3d96-41da-b6ed-615bb9bd0327",
+    "name": "AmericanExpress"
+  },
+  {
+    "_id": "gMWKY2vC9HqpyTlaCBGyWG2Xbbhu",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F3-jcb_200x119.png?alt=media&token=642ea4bd-4de4-4c94-a897-81ec60675995",
+    "name": "JCB"
+  },
+  {
+    "_id": "gZeypyFoChPbKj9Zpf0kiG98mXET",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F5-mastercard_200x119.png?alt=media&token=7033114c-b790-44ad-96dd-6156c86df5c6",
+    "name": "MasterCard"
+  },
+  {
+    "_id": "jzX86p_XszZMOLlpFJ4hrrC1tcAs",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F8-unionpay_200x119.png?alt=media&token=ca1f5fc1-9ea6-472a-a108-ccf1a3f4c625",
+    "name": "UnionPay"
+  },
+  {
+    "_id": "lI0azgQCNT46gE3UW3YK4yezZRxW",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F7-visa_200x119.png?alt=media&token=110f098e-2b82-451f-8383-7d5434e39fe0",
+    "name": "VISA"
+  },
+  {
+    "_id": "n09z4Ew9ZlCPoX6mnBg5AWglzKyw",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F6-mir_200x119.png?alt=media&token=799aa275-025d-411f-848c-179a8f67fcec",
+    "name": "MIR"
+  },
+  {
+    "_id": "ruyf7XPj-ymBgdw3PwbBViw1OBhk",
+    "image": "https://firebasestorage.googleapis.com/v0/b/gains-vs-spending-firebase.appspot.com/o/payment%2F4-maestro_200x119.png?alt=media&token=baf23bb9-7ab8-4062-a531-9a45bcb0b42f",
+    "name": "Maestro"
+  }
+]
