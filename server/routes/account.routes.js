@@ -1,5 +1,5 @@
 const express = require("express");
-const Account = requires("../models/Account");
+const Account = require("../models/Account");
 const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {});

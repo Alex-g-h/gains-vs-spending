@@ -1,5 +1,5 @@
 const express = require("express");
-const Spending = requires("../models/Spending");
+const Spending = require("../models/Spending");
 const router = express.Router({ mergeParams: true });
 
 router.get("/", async (req, res) => {});

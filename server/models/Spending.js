@@ -16,4 +16,4 @@ const schema = new Schema(
   { timestamps: true }
 );
 
-module.exports = model("Spending", shcema);
+module.exports = model("Spending", schema);
