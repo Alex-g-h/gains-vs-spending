@@ -34,7 +34,7 @@ router.put("/:userId", async (req, res) => {
     const { userId } = req.params;
     const newUser = await User.create({
       ...req.body,
-      userId: userId,
+      userId,
     });
 
     res.status(201).send(newUser);
