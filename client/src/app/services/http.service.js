@@ -9,27 +9,47 @@ const http = axios.create({ baseURL: configFile.apiEndpoint });
 
 http.interceptors.request.use(
   async function (config) {
-    const containSlash = /\/$/gi.test(config.url);
-    config.url =
-      (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
-
-    // refresh Auth token if it already have expired
     const expiresDate = localStorageService.getTokenExpiresDate();
     const refreshToken = localStorageService.getRefreshToken();
-    if (refreshToken && expiresDate < Date.now()) {
-      const data = await authService.refresh();
-      localStorageService.setTokens({
-        refreshToken: data.refresh_token,
-        idToken: data.id_token,
-        localId: data.user_id,
-        expiresIn: data.expires_in,
-      });
-    }
+    const isExpired = refreshToken && expiresDate < Date.now();
 
-    // add Auth to request
-    const accessToken = localStorageService.getAccessToken();
-    if (accessToken) {
-      config.params = { ...config.params, auth: accessToken };
+    if (configFile.isFireBase) {
+      const containSlash = /\/$/gi.test(config.url);
+      config.url =
+        (containSlash ? config.url.slice(0, -1) : config.url) + ".json";
+
+      // refresh Auth token if it already have expired
+
+      if (isExpired) {
+        const data = await authService.refresh();
+        localStorageService.setTokens({
+          refreshToken: data.refresh_token,
+          idToken: data.id_token,
+          localId: data.user_id,
+          expiresIn: data.expires_in,
+        });
+      }
+
+      // add Auth to request
+      const accessToken = localStorageService.getAccessToken();
+      if (accessToken) {
+        config.params = { ...config.params, auth: accessToken };
+      }
+    } else {
+      // refresh Auth token if it already have expired
+      if (isExpired) {
+        const data = await authService.refresh();
+        localStorageService.setTokens(data);
+      }
+
+      // add Auth to request
+      const accessToken = localStorageService.getAccessToken();
+      if (accessToken) {
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${accessToken}`,
+        };
+      }
     }
 
     return config;
