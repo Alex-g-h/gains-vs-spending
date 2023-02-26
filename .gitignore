@@ -11,6 +11,7 @@ server/node_modules
 
 # production
 client/build
+server/client
 
 # misc
 client/.DS_Store
