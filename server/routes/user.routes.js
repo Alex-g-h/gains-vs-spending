@@ -45,7 +45,7 @@ router.put("/:userId", async (req, res) => {
   }
 });
 
-router.patch("/:userId", async (req, res) => {
+router.patch("/:userId", auth, async (req, res) => {
   try {
     const { userId } = req.params;
 
@@ -60,7 +60,7 @@ router.patch("/:userId", async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Server side error occurred. Try again later" });
+      .json({ message: "Server side error occurred. Try again later", error });
   }
 });
 

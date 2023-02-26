@@ -42,8 +42,6 @@ const AccountsList = () => {
     setModalDataToHandle(data);
   };
 
-  console.log("accounts", accounts);
-
   return (
     <div className="list-block">
       {modalConfirmationForm}
