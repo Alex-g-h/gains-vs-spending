@@ -18,6 +18,7 @@ import SpinLoading from "../../ui/spinLoading";
 import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
 import _ from "lodash";
+import { useNavigate } from "react-router-dom";
 
 const filterOptions = [
   {
@@ -58,6 +59,7 @@ const TransactionHistoryPage = () => {
     useModalDelete(modalNameForId);
 
   const [filterOptionsIndex, setFilterOptionsIndex] = useState(0);
+  const navigate = useNavigate();
 
   const isLoading = gainsLoadingStatus || spendingLoadingStatus;
 
@@ -216,14 +218,38 @@ const TransactionHistoryPage = () => {
             ))}
           </ul>
         </div>
-
-        <button
-          className="p-2 btn border mx-1"
-          disabled
-          type="button"
-        >
-          Add transaction <i className="bi bi-plus-circle-fill"></i>
-        </button>
+        <div className="dropdown">
+          <button
+            className="btn p-2 border mx-1"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Add transaction <i className="bi bi-plus-circle-fill"></i>
+          </button>
+          <ul
+            className="dropdown-menu"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li>
+              <div
+                onClick={() => navigate("/gain/add")}
+                className="dropdown-item"
+              >
+                Gains
+              </div>
+            </li>
+            <li>
+              <div
+                onClick={() => navigate("/spending/add")}
+                className="dropdown-item"
+              >
+                Spending
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
       {isLoading ? (
         <SpinLoading />
