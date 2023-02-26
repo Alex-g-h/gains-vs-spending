@@ -45,7 +45,7 @@ export const deleteAccount = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { content } = await accountService.delete(id);
-      if (content === null) {
+      if (!content) {
         // delete all gains correspond to account
         thunkAPI.dispatch(deleteGainsByAccountId(id));
         // delete all spending correspond to account

@@ -41,7 +41,7 @@ export const deleteGainById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { content } = await gainService.delete(id);
-      return content === null
+      return !content
         ? id
         : thunkAPI.rejectWithValue(`Can't delete gain with ID: ${id}`);
     } catch (error) {

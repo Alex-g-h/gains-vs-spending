@@ -44,7 +44,7 @@ export const deleteSpendingById = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const { content } = await spendingService.delete(id);
-      return content === null
+      return !content
         ? id
         : thunkAPI.rejectWithValue(`Can't delete spending with ID: ${id}`);
     } catch (error) {
