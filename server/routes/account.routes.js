@@ -26,7 +26,7 @@ router.put("/:accountId", auth, async (req, res) => {
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Server side error occurred. Try again later" });
+      .json({ message: "Server side error occurred. Try again later", error });
   }
 });
 

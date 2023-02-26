@@ -69,7 +69,11 @@ function transformData(data) {
 
 http.interceptors.response.use(
   (res) => {
-    res.data = { content: transformData(res.data) };
+    if (configFile.isFireBase) {
+      res.data = { content: transformData(res.data) };
+    } else {
+      res.data = { content: res.data };
+    }
     return res;
   },
   (error) => {
