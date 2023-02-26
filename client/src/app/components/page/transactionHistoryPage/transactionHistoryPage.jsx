@@ -41,7 +41,7 @@ const TransactionHistoryPage = () => {
     gains?.forEach((g) =>
       commonData.push(
         HistoryDataItem({
-          accountId: g.account_id,
+          accountId: g.accountId,
           gainId: g._id,
           date: g.date,
           amount: g.amount,
@@ -51,9 +51,9 @@ const TransactionHistoryPage = () => {
     spending?.forEach((s) =>
       commonData.push(
         HistoryDataItem({
-          accountId: s.account_id,
+          accountId: s.accountId,
           spendingId: s._id,
-          expenseId: s.expense_id,
+          expenseId: s.expenseId,
           date: s.date,
           amount: s.amount,
           comment: s.comment,

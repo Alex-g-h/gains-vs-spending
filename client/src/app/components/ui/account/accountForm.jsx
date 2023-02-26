@@ -50,7 +50,7 @@ const AccountForm = () => {
   const { accountId } = useParams();
 
   const currentAccount = useSelector(getAccountById(accountId));
-  const paymentObj = useSelector(getPaymentById(currentAccount?.payment_id));
+  const paymentObj = useSelector(getPaymentById(currentAccount?.paymentId));
 
   const isAddForm = !accountId; // otherwise it's the edit form
 
@@ -155,7 +155,7 @@ const AccountForm = () => {
     } else {
       const editAccount = {
         ...currentAccount,
-        payment_id: paymentConverted.value,
+        paymentId: paymentConverted.value,
         bank,
         number,
         credit,

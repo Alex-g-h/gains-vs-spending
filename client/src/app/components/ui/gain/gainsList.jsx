@@ -56,7 +56,7 @@ const GainsList = () => {
           <Gain
             date={g.date}
             amount={g.amount}
-            accountId={g.account_id}
+            accountId={g.accountId}
           />
         </WithEditDelete>
       ))}

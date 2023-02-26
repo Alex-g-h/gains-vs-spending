@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import makeAccountNumberSecure from "../../../utils/makeAccountNumberSecure";
 
 const Account = ({ paymentId, number, bankName }) => {
+  console.log("paymentId", paymentId);
+
   const { image: paymentImageSrc } = useSelector(getPaymentById(paymentId));
   const secureNumber = makeAccountNumberSecure(number);
 

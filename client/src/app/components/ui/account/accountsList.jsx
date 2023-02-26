@@ -42,6 +42,8 @@ const AccountsList = () => {
     setModalDataToHandle(data);
   };
 
+  console.log("accounts", accounts);
+
   return (
     <div className="list-block">
       {modalConfirmationForm}
@@ -54,7 +56,7 @@ const AccountsList = () => {
           modalNameId={modalNameForId}
         >
           <Account
-            paymentId={a.payment_id}
+            paymentId={a.paymentId}
             number={a.number}
             bankName={a.bank}
           />

@@ -49,7 +49,7 @@ const SpendingForm = () => {
   const expenseTypesLoading = useSelector(getExpenseTypesLoadingStatus());
   const currentSpending = useSelector(getSpendingById(spendingId));
   const expenseTypeObj = useSelector(
-    getExpenseTypesById(currentSpending?.expense_id)
+    getExpenseTypesById(currentSpending?.expenseId)
   );
 
   const isAddForm = !spendingId; // otherwise it's the edit form
@@ -90,7 +90,7 @@ const SpendingForm = () => {
   // initialize data for edit form
   useEffect(() => {
     if (currentSpending) {
-      const { date, amount, account_id: accountId, comment } = currentSpending;
+      const { date, amount, accountId, comment } = currentSpending;
       const amountString = String(amount);
       const newData = {
         date,
@@ -165,8 +165,8 @@ const SpendingForm = () => {
     } else {
       const editSpending = {
         ...currentSpending,
-        account_id: account,
-        expense_id: expenseType.value,
+        accountId: account,
+        expenseId: expenseType.value,
         amount: amountNumber,
         date,
         comment,

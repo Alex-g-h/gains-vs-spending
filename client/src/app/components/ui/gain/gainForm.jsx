@@ -58,7 +58,7 @@ const GainForm = () => {
   // initialize data for edit form
   useEffect(() => {
     if (currentGain) {
-      const { date, amount, account_id: accountId } = currentGain;
+      const { date, amount, accountId } = currentGain;
       const amountString = String(amount);
       const newData = {
         date,
@@ -117,7 +117,7 @@ const GainForm = () => {
     } else {
       const editGain = {
         ...currentGain,
-        account_id: account,
+        accountId: account,
         date,
         amount: amountNumber,
       };

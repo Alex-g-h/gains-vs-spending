@@ -54,8 +54,8 @@ const SpendingList = () => {
           modalNameId={modalNameForId}
         >
           <SpendingRow
-            accountId={s.account_id}
-            expenseId={s.expense_id}
+            accountId={s.accountId}
+            expenseId={s.expenseId}
             date={s.date}
             amount={s.amount}
           />

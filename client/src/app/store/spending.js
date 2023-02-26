@@ -63,7 +63,7 @@ export const deleteSpendingsByAccountId = createAsyncThunk(
       }
       const spendingsCopy = [...spendings];
       spendingsCopy.forEach((spending) => {
-        if (spending.account_id === accountId) {
+        if (spending.accountId === accountId) {
           thunkAPI.dispatch(deleteSpendingById(spending._id));
         }
       });

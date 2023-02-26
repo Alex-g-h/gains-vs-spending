@@ -60,7 +60,7 @@ export const deleteGainsByAccountId = createAsyncThunk(
       }
       const gainsCopy = [...gains];
       gainsCopy.forEach((gain) => {
-        if (gain.account_id === accountId) {
+        if (gain.accountId === accountId) {
           thunkAPI.dispatch(deleteGainById(gain._id));
         }
       });
