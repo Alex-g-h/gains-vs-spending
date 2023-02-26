@@ -151,9 +151,9 @@ const SpendingForm = () => {
     if (isAddForm) {
       dispatch(
         createSpending({
-          user_id: currentUserId,
-          account_id: account,
-          expense_id: expenseType.value,
+          userId: currentUserId,
+          accountId: account,
+          expenseId: expenseType.value,
           amount: amountNumber,
           date,
           comment,

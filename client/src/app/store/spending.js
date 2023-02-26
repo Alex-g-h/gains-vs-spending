@@ -154,7 +154,7 @@ export const getSpendingLoadingStatus = () => (state) => state[name].isLoading;
  */
 export const getSpendings = (userId) => (state) => {
   const spendings = state[name].entities?.reduce((res, curr) => {
-    if (curr.user_id === userId) return [...res, curr];
+    if (curr.userId === userId) return [...res, curr];
     return res;
   }, []);
 

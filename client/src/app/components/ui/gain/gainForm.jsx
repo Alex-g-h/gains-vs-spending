@@ -105,8 +105,8 @@ const GainForm = () => {
     if (isAddForm) {
       dispatch(
         createGain({
-          user_id: currentUserId,
-          account_id: account,
+          userId: currentUserId,
+          accountId: account,
           date,
           amount: amountNumber,
         })

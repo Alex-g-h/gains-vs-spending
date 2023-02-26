@@ -151,7 +151,7 @@ export const getGainsLoadingStatus = () => (state) => state[name].isLoading;
  */
 export const getGains = (userId) => (state) => {
   const gains = state[name].entities?.reduce((res, curr) => {
-    if (curr.user_id === userId) return [...res, curr];
+    if (curr.userId === userId) return [...res, curr];
     return res;
   }, []);
 

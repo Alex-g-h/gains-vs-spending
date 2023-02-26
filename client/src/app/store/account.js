@@ -132,7 +132,7 @@ export const getAccountById = (id) => (state) =>
 // get account only for one user
 export const getAccounts = (userId) => (state) =>
   state[name].entities?.reduce((res, curr) => {
-    if (curr.user_id === userId) return [...res, curr];
+    if (curr.userId === userId) return [...res, curr];
     return res;
   }, []);
 

@@ -142,8 +142,8 @@ const AccountForm = () => {
     if (isAddForm) {
       dispatch(
         createAccount({
-          user_id: currentUserId,
-          payment_id: paymentConverted.value,
+          userId: currentUserId,
+          paymentId: paymentConverted.value,
           bank,
           number,
           credit,
