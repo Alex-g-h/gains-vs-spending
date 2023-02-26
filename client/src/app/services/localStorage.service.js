@@ -6,8 +6,8 @@ const USER_KEY = "user-local";
 
 export function setTokens({
   refreshToken,
-  idToken: accessToken,
-  localId: userId,
+  accessToken,
+  userId,
   expiresIn = 3600,
 }) {
   const expiresDate = new Date().getTime() + expiresIn * 1000;

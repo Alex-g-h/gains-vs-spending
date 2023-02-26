@@ -20,17 +20,14 @@ const initialState = localStorageService.getAccessToken()
 
 export const signUp = createAsyncThunk(
   "user/signup",
-  async ({ email, password, name, ...rest }, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      const data = await authService.register({ email, password });
+      const data = await authService.register(payload);
       localStorageService.setTokens(data);
       const user = {
-        _id: data.localId,
-        email,
-        name,
-        ...rest,
+        _id: data.userId,
+        ...payload,
       };
-      thunkAPI.dispatch(createUser(user));
       localStorageService.setUser(user);
       return { userId: data.localId, user };
     } catch (error) {
@@ -48,7 +45,7 @@ export const signIn = createAsyncThunk(
 
       const user = await userService.getCurrentUser();
       localStorageService.setUser(user);
-      return { userId: data.localId, user };
+      return { userId: data.userId, user };
     } catch (error) {
       const { code, message } = error.response.data.error;
       let errorOutMessage = "";
@@ -66,18 +63,6 @@ export const signIn = createAsyncThunk(
 export const logOut = createAsyncThunk("user/logout", () => {
   localStorageService.removeAuthData();
 });
-
-const createUser = createAsyncThunk(
-  "user/create",
-  async (payload, thunkAPI) => {
-    try {
-      const { content } = await userService.create(payload);
-      return content;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
-  }
-);
 
 export const updateUser = createAsyncThunk(
   "user/update",
