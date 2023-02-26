@@ -17,6 +17,30 @@ import Pagination from "../../common/pagination";
 import SpinLoading from "../../ui/spinLoading";
 import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
+import _ from "lodash";
+
+const filterOptions = [
+  {
+    orderBy: "date",
+    dir: "asc",
+    text: "Early first",
+  },
+  {
+    orderBy: "date",
+    dir: "desc",
+    text: "Later first",
+  },
+  {
+    orderBy: "amount",
+    dir: "asc",
+    text: "Increasing amount",
+  },
+  {
+    orderBy: "amount",
+    dir: "desc",
+    text: "Decreasing amount",
+  },
+];
 
 const TransactionHistoryPage = () => {
   const currentUserId = useSelector(getCurrentUserId());
@@ -32,6 +56,8 @@ const TransactionHistoryPage = () => {
   const modalNameForId = "History";
   const { modalConfirmationForm, setModalDataToHandle } =
     useModalDelete(modalNameForId);
+
+  const [filterOptionsIndex, setFilterOptionsIndex] = useState(0);
 
   const isLoading = gainsLoadingStatus || spendingLoadingStatus;
 
@@ -64,9 +90,8 @@ const TransactionHistoryPage = () => {
     setData(commonData);
   }, [gainsLoadingStatus, spendingLoadingStatus]);
 
-  const filteredTransactions = data;
-
-  // TODO: sort asc/desc data by amount, date
+  const filter = filterOptions[filterOptionsIndex];
+  const filteredTransactions = _.orderBy(data, filter.orderBy, filter.dir);
 
   const count = filteredTransactions ? filteredTransactions.length : 0;
   const transactionsCrop = paginate(
@@ -96,7 +121,6 @@ const TransactionHistoryPage = () => {
         setCurrentPageNumber(newPageNumber);
       }
     }
-    // });
   }, [count]);
 
   /**
@@ -152,19 +176,47 @@ const TransactionHistoryPage = () => {
     }
   };
 
+  const handleFilter = (filterIndex) => {
+    setFilterOptionsIndex(filterIndex);
+  };
+
   return (
     <>
       <div className="d-flex mb-2">
         <div className="align-self-center flex-grow-1">
           <h4>Transaction history</h4>
         </div>
-        <button
-          className="p-2 btn border mx-1"
-          disabled
-          type="button"
-        >
-          Filter <i className="bi bi-filter"></i>
-        </button>
+        <div className="dropdown">
+          <button
+            className="btn dropdown-toggle p-2 border mx-1"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Filter <i className="bi bi-filter"></i>
+          </button>
+          <ul
+            className="dropdown-menu"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            {filterOptions.map((f, index) => (
+              <li key={index}>
+                <div
+                  onClick={() => handleFilter(index)}
+                  className={
+                    index === filterOptionsIndex
+                      ? "dropdown-item active"
+                      : "dropdown-item"
+                  }
+                >
+                  {f.text}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
         <button
           className="p-2 btn border mx-1"
           disabled

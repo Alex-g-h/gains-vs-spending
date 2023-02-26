@@ -29,7 +29,7 @@ const Login = () => {
                   role="button"
                   onClick={toggleFormType}
                 >
-                  Sign In
+                  <strong>Sign In</strong>
                 </a>
               </p>
             </>
@@ -43,7 +43,7 @@ const Login = () => {
                   role="button"
                   onClick={toggleFormType}
                 >
-                  Sign Up
+                  <strong>Sign Up</strong>
                 </a>
               </p>
             </>
