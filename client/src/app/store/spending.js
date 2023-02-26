@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import spendingService from "../services/spending.service";
 import { sortObjectByDate } from "../utils/sort";
 
@@ -25,8 +25,9 @@ export const createSpending = createAsyncThunk(
   "spending/create",
   async (payload, thunkAPI) => {
     try {
+      const nanoid = customAlphabet("1234567890abcdef", 24);
       const spending = {
-        _id: nanoid(28),
+        _id: nanoid(),
         ...payload,
       };
 

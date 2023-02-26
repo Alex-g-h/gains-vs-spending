@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import accountService from "../services/account.service";
 import { deleteGainsByAccountId } from "./gain";
 import { deleteSpendingsByAccountId } from "./spending";
@@ -13,8 +13,9 @@ const initialState = {
 export const createAccount = createAsyncThunk(
   "account/create",
   async (payload, thunkAPI) => {
+    const nanoid = customAlphabet("1234567890abcdef", 24);
     const account = {
-      _id: nanoid(28),
+      _id: nanoid(),
       ...payload,
     };
 
