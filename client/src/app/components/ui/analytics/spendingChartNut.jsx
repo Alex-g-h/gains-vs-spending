@@ -1,28 +1,31 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getGains, getGainsLoadingStatus } from "../../../store/gain";
+import {
+  getSpendingLoadingStatus,
+  getSpendings,
+} from "../../../store/spending";
 import { getCurrentUserId } from "../../../store/user";
 import SpinLoading from "../spinLoading";
 import { accumulateSumByAccountId } from "./accumulateSumByAccountId";
 import ChartNut from "./chartNut";
 
-const GainsChartNut = () => {
+const SpendingChartNut = () => {
   const currentUserId = useSelector(getCurrentUserId());
-  const gains = useSelector(getGains(currentUserId));
-  const gainsLoading = useSelector(getGainsLoadingStatus());
+  const spending = useSelector(getSpendings(currentUserId));
+  const spendingLoading = useSelector(getSpendingLoadingStatus());
 
-  const isLoading = gainsLoading;
+  const isLoading = spendingLoading;
 
   if (isLoading) return <SpinLoading />;
 
   const accountsWithSum = {};
 
   // accumulate sum by account
-  gains.forEach((g) =>
+  spending.forEach((g) =>
     accumulateSumByAccountId(accountsWithSum, g.accountId, g.amount)
   );
 
   return <ChartNut accountsWithSum={accountsWithSum} />;
 };
 
-export default GainsChartNut;
+export default SpendingChartNut;
