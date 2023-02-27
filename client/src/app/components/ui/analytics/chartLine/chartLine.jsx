@@ -29,6 +29,7 @@ const ChartLine = ({ amountWithDate }) => {
         position: "top",
       },
     },
+    maintainAspectRatio: false,
   };
 
   const labels = amountWithDate.map((item) => item.date);

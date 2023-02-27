@@ -21,6 +21,7 @@ const ChartHist = ({ sumByMonth }) => {
         position: "right",
       },
     },
+    maintainAspectRatio: false,
   };
 
   const labels = [
