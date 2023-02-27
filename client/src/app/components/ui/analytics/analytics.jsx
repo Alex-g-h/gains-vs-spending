@@ -1,4 +1,5 @@
 import React from "react";
+import GainsChartNut from "./gainsChartNut";
 
 const Analytics = () => {
   return (
@@ -9,7 +10,9 @@ const Analytics = () => {
       </div>
       <hr />
       <div className="d-flex flex-wrap justify-content-evenly">
-        <div>Round chart</div>
+        <div>
+          <GainsChartNut />
+        </div>
         <div>Chart</div>
         <div>Hist</div>
       </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import Accounts from "../../ui/account";
-import Analytics from "./analytics";
+import Analytics from "../../ui/analytics";
 import Gains from "../../ui/gain";
 import Spending from "../../ui/spending";
 
