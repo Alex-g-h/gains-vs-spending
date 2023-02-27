@@ -3,9 +3,9 @@ import { useSelector } from "react-redux";
 import {
   getSpendingLoadingStatus,
   getSpendings,
-} from "../../../store/spending";
-import { getCurrentUserId } from "../../../store/user";
-import SpinLoading from "../spinLoading";
+} from "../../../../store/spending";
+import { getCurrentUserId } from "../../../../store/user";
+import SpinLoading from "../../spinLoading";
 import { accumulateSumByAccountId } from "./accumulateSumByAccountId";
 import ChartNut from "./chartNut";
 

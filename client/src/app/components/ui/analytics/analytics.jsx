@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import GainsChartNut from "./gainsChartNut";
-import SpendingChartNut from "./spendingChartNut";
+import GainsChartHist from "./chartHist/gainsChartHist";
+import SpendingChartHist from "./chartHist/spendingChartHist";
+import GainsChartLine from "./chartLine/gainsChartLine";
+import SpendingChartLine from "./chartLine/spendingChartLine";
+import GainsChartNut from "./chartNut/gainsChartNut";
+import SpendingChartNut from "./chartNut/spendingChartNut";
 
 const Analytics = () => {
   const [isGains, setIsGains] = useState(true);
@@ -29,8 +33,8 @@ const Analytics = () => {
       <hr />
       <div className="d-flex flex-wrap justify-content-evenly">
         <div>{isGains ? <GainsChartNut /> : <SpendingChartNut />}</div>
-        <div>Chart</div>
-        <div>Hist</div>
+        <div>{isGains ? <GainsChartLine /> : <SpendingChartLine />}</div>
+        <div>{isGains ? <GainsChartHist /> : <SpendingChartHist />}</div>
       </div>
       <div className="d-flex justify-content-center mt-3">
         <div className="text-muted small">Analytics</div>

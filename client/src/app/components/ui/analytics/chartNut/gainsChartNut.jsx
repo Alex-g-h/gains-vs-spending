@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getGains, getGainsLoadingStatus } from "../../../store/gain";
-import { getCurrentUserId } from "../../../store/user";
-import SpinLoading from "../spinLoading";
+import { getGains, getGainsLoadingStatus } from "../../../../store/gain";
+import { getCurrentUserId } from "../../../../store/user";
+import SpinLoading from "../../spinLoading";
 import { accumulateSumByAccountId } from "./accumulateSumByAccountId";
 import ChartNut from "./chartNut";
 

@@ -2,10 +2,13 @@ import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import { useSelector } from "react-redux";
-import { getCurrentUserId } from "../../../store/user";
-import { getAccountLoadingStatus, getAccounts } from "../../../store/account";
-import SpinLoading from "../spinLoading";
-import { getRandomBgBorderColorAlpha } from "../../../utils/random";
+import { getCurrentUserId } from "../../../../store/user";
+import {
+  getAccountLoadingStatus,
+  getAccounts,
+} from "../../../../store/account";
+import SpinLoading from "../../spinLoading";
+import { getRandomBgBorderColorAlpha } from "../../../../utils/random";
 import PropTypes from "prop-types";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
