@@ -15,6 +15,8 @@ const GainsChartNut = () => {
 
   if (isLoading) return <SpinLoading />;
 
+  if (gains.length === 0) return "";
+
   const accountsWithSum = {};
 
   // accumulate sum by account

@@ -14,6 +14,8 @@ const GainsChartHist = () => {
 
   if (isLoading) return <SpinLoading />;
 
+  if (gains.length === 0) return "";
+
   const sumByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   // accumulate sum by account

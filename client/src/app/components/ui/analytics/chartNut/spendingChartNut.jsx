@@ -18,6 +18,8 @@ const SpendingChartNut = () => {
 
   if (isLoading) return <SpinLoading />;
 
+  if (spending.length === 0) return "";
+
   const accountsWithSum = {};
 
   // accumulate sum by account

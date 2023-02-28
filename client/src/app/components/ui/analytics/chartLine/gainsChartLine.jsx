@@ -14,6 +14,8 @@ const GainsChartLine = () => {
 
   if (isLoading) return <SpinLoading />;
 
+  if (gains.length === 0) return "";
+
   const amountWithDate = [];
 
   // collect data (amount + date)

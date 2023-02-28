@@ -19,6 +19,8 @@ const SpendingChartLine = () => {
 
   const amountWithDate = [];
 
+  if (spending.length === 0) return "";
+
   // collect data (amount + date)
   spending.forEach((g) => {
     amountWithDate.push({ date: g.date, amount: g.amount });

@@ -17,6 +17,8 @@ const SpendingChartHist = () => {
 
   if (isLoading) return <SpinLoading />;
 
+  if (spending.length === 0) return "";
+
   const sumByMonth = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   // accumulate sum by account
