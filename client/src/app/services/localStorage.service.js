@@ -37,6 +37,7 @@ export function getUserId() {
 }
 
 export function setUser(data) {
+  delete data?.password;
   localStorage.setItem(USER_KEY, JSON.stringify(data));
 }
 
