@@ -29,7 +29,7 @@ export const signUp = createAsyncThunk(
         ...payload,
       };
       localStorageService.setUser(user);
-      return { userId: data.localId, user };
+      return { userId: data.userId, user };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
