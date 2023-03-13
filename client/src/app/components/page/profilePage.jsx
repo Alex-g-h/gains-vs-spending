@@ -15,6 +15,8 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  if (!user) return "";
+
   const validatorConfig = {
     email: {
       isRequired: { message: "Email is required" },
