@@ -135,50 +135,46 @@ const GainForm = () => {
   if (accountsLoading) return <SpinLoading />;
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3 shadow p-4">
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Date"
-              type="date"
-              name="date"
-              value={data.date}
-              onChange={handleChange}
-              error={errors.date}
-            />
-            <SelectField
-              label="Account"
-              name="account"
-              defaultOption="Choose..."
-              options={accountsConverted}
-              onChange={handleChange}
-              value={data.account}
-              error={errors.account}
-            />
-            <TextField
-              label="Amount, $"
-              type="number"
-              name="amount"
-              value={data.amount}
-              onChange={handleChange}
-              error={errors.amount}
-            />
-            {!loading ? (
-              <button
-                type="submit"
-                disabled={!isActiveButton}
-                className="btn btn-primary w-100 mx-auto"
-              >
-                {isAddForm ? "Add " : "Edit "} gain
-              </button>
-            ) : (
-              <SpinLoading />
-            )}
-          </form>
-        </div>
-      </div>
-    </div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Date"
+          type="date"
+          name="date"
+          value={data.date}
+          onChange={handleChange}
+          error={errors.date}
+        />
+        <SelectField
+          label="Account"
+          name="account"
+          defaultOption="Choose..."
+          options={accountsConverted}
+          onChange={handleChange}
+          value={data.account}
+          error={errors.account}
+        />
+        <TextField
+          label="Amount, $"
+          type="number"
+          name="amount"
+          value={data.amount}
+          onChange={handleChange}
+          error={errors.amount}
+        />
+        {!loading ? (
+          <button
+            type="submit"
+            disabled={!isActiveButton}
+            className="btn btn-primary w-100 mx-auto"
+          >
+            {isAddForm ? "Add " : "Edit "} gain
+          </button>
+        ) : (
+          <SpinLoading />
+        )}
+      </form>
+    </>
   );
 };
 

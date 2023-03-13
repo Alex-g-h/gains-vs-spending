@@ -174,57 +174,53 @@ const AccountForm = () => {
   if (paymentsLoading) return <SpinLoading />;
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3 shadow p-4">
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Bank name"
-              type="text"
-              name="bank"
-              value={data.bank}
-              onChange={handleChange}
-              error={errors.bank}
-            />
-            <TextField
-              label="Number"
-              type="number"
-              name="number"
-              value={data.number}
-              onChange={handleChange}
-              error={errors.number}
-            />
-            <SelectPayment
-              label="Payment system"
-              name="payment"
-              options={paymentsConverted}
-              onChange={handleChange}
-              value={data.payment}
-              error={errors.payment}
-            />
-            <CheckBoxField
-              value={data.credit}
-              onChange={handleChange}
-              name="credit"
-              error={errors.credit}
-            >
-              Credit card
-            </CheckBoxField>
-            {!loading ? (
-              <button
-                type="submit"
-                disabled={!isActiveButton}
-                className="btn btn-primary w-100 mx-auto"
-              >
-                {isAddForm ? "Add " : "Edit "} card
-              </button>
-            ) : (
-              <SpinLoading />
-            )}
-          </form>
-        </div>
-      </div>
-    </div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Bank name"
+          type="text"
+          name="bank"
+          value={data.bank}
+          onChange={handleChange}
+          error={errors.bank}
+        />
+        <TextField
+          label="Number"
+          type="number"
+          name="number"
+          value={data.number}
+          onChange={handleChange}
+          error={errors.number}
+        />
+        <SelectPayment
+          label="Payment system"
+          name="payment"
+          options={paymentsConverted}
+          onChange={handleChange}
+          value={data.payment}
+          error={errors.payment}
+        />
+        <CheckBoxField
+          value={data.credit}
+          onChange={handleChange}
+          name="credit"
+          error={errors.credit}
+        >
+          Credit card
+        </CheckBoxField>
+        {!loading ? (
+          <button
+            type="submit"
+            disabled={!isActiveButton}
+            className="btn btn-primary w-100 mx-auto"
+          >
+            {isAddForm ? "Add " : "Edit "} card
+          </button>
+        ) : (
+          <SpinLoading />
+        )}
+      </form>
+    </>
   );
 };
 

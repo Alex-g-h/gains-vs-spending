@@ -185,65 +185,61 @@ const SpendingForm = () => {
   if (accountsLoading) return <SpinLoading />;
 
   return (
-    <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-6 offset-md-3 shadow p-4">
-          <form onSubmit={handleSubmit}>
-            <TextField
-              label="Date"
-              type="date"
-              name="date"
-              value={data.date}
-              onChange={handleChange}
-              error={errors.date}
-            />
-            <SelectField
-              label="Account"
-              name="account"
-              defaultOption="Choose..."
-              options={accountsConverted}
-              onChange={handleChange}
-              value={data.account}
-              error={errors.account}
-            />
-            <TextField
-              label="Amount, $"
-              type="number"
-              name="amount"
-              value={data.amount}
-              onChange={handleChange}
-              error={errors.amount}
-            />
-            <SelectExpenseTypes
-              label="Expense type"
-              name="expenseType"
-              options={expenseTypesConverted}
-              onChange={handleChange}
-              value={data.expenseType}
-              error={errors.expenseType}
-            />
-            <TextAreaField
-              label="Comment"
-              name="comment"
-              onChange={handleChange}
-              value={data.comment}
-              error={errors.comment}
-            />
-            {!loading ? (
-              <button
-                type="submit"
-                disabled={!isActiveButton}
-                className="btn btn-primary w-100 mx-auto"
-              >
-                {isAddForm ? "Add " : "Edit "} spending
-              </button>
-            ) : (
-              <SpinLoading />
-            )}
-          </form>
-        </div>
-      </div>
-    </div>
+    <>
+      <form onSubmit={handleSubmit}>
+        <TextField
+          label="Date"
+          type="date"
+          name="date"
+          value={data.date}
+          onChange={handleChange}
+          error={errors.date}
+        />
+        <SelectField
+          label="Account"
+          name="account"
+          defaultOption="Choose..."
+          options={accountsConverted}
+          onChange={handleChange}
+          value={data.account}
+          error={errors.account}
+        />
+        <TextField
+          label="Amount, $"
+          type="number"
+          name="amount"
+          value={data.amount}
+          onChange={handleChange}
+          error={errors.amount}
+        />
+        <SelectExpenseTypes
+          label="Expense type"
+          name="expenseType"
+          options={expenseTypesConverted}
+          onChange={handleChange}
+          value={data.expenseType}
+          error={errors.expenseType}
+        />
+        <TextAreaField
+          label="Comment"
+          name="comment"
+          onChange={handleChange}
+          value={data.comment}
+          error={errors.comment}
+        />
+        {!loading ? (
+          <button
+            type="submit"
+            disabled={!isActiveButton}
+            className="btn btn-primary w-100 mx-auto"
+          >
+            {isAddForm ? "Add " : "Edit "} spending
+          </button>
+        ) : (
+          <SpinLoading />
+        )}
+      </form>
+    </>
   );
 };
 
