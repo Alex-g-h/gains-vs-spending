@@ -17,7 +17,7 @@ import Pagination from "../../common/pagination";
 import SpinLoading from "../../ui/spinLoading";
 import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
-import _ from "lodash";
+import orderByLodash from "lodash/orderBy";
 import { useNavigate } from "react-router-dom";
 
 const filterOptions = [
@@ -93,7 +93,7 @@ const TransactionHistoryPage = () => {
   }, [gainsLoadingStatus, spendingLoadingStatus]);
 
   const filter = filterOptions[filterOptionsIndex];
-  const filteredTransactions = _.orderBy(data, filter.orderBy, filter.dir);
+  const filteredTransactions = orderByLodash(data, filter.orderBy, filter.dir);
 
   const count = filteredTransactions ? filteredTransactions.length : 0;
   const transactionsCrop = paginate(
