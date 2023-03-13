@@ -5,6 +5,7 @@ import ProfilePage from "./components/page/profilePage";
 import AccountForm from "./components/ui/account/accountForm";
 import GainForm from "./components/ui/gain/gainForm";
 import SpendingForm from "./components/ui/spending/spendingForm";
+import AddOrEditLayout from "./layouts/addOrEditLayout";
 import History from "./layouts/history";
 import Login from "./layouts/login";
 import LogOut from "./layouts/logout";
@@ -46,6 +47,14 @@ const routes = (isLoggedIn, location) => [
   },
   {
     path: "account",
+    element: isLoggedIn ? (
+      <AddOrEditLayout />
+    ) : (
+      <Navigate
+        to="/login"
+        state={{ referrer: location }}
+      />
+    ),
     children: [
       {
         path: "add",
@@ -59,6 +68,15 @@ const routes = (isLoggedIn, location) => [
   },
   {
     path: "gain",
+    element: isLoggedIn ? (
+      <AddOrEditLayout />
+    ) : (
+      <Navigate
+        to="/login"
+        state={{ referrer: location }}
+      />
+    ),
+
     children: [
       {
         path: "add",
@@ -72,6 +90,14 @@ const routes = (isLoggedIn, location) => [
   },
   {
     path: "spending",
+    element: isLoggedIn ? (
+      <AddOrEditLayout />
+    ) : (
+      <Navigate
+        to="/login"
+        state={{ referrer: location }}
+      />
+    ),
     children: [
       {
         path: "add",
