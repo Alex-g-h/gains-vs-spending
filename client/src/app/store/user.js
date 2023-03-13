@@ -120,7 +120,7 @@ const { reducer: userReducer, name } = userSlice;
 
 // Selectors
 export const getIsLoggedIn = () => (state) => state[name].isLoggedIn;
-export const getCurrentUserId = () => (state) => state[name].auth.userId;
+export const getCurrentUserId = () => (state) => state[name].auth?.userId;
 export const getCurrentUserData = () => (state) => state[name].user;
 export const getAuthErrors = () => (state) => state[name].error;
 
