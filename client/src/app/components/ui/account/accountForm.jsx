@@ -54,6 +54,10 @@ const AccountForm = () => {
 
   const isAddForm = !accountId; // otherwise it's the edit form
 
+  // redirect to add new account page if current page is "edit" and
+  // accountId is wrong (not exists)
+  if (!isAddForm && !currentAccount) navigate("/account/add");
+
   // initialize data for edit form
   useEffect(() => {
     if (currentAccount) {

@@ -29,6 +29,10 @@ const GainForm = () => {
 
   const isAddForm = !gainId; // otherwise it's the edit form
 
+  // redirect to add new gain page if current page is "edit" and
+  // gainId is wrong (not exists)
+  if (!isAddForm && !currentGain) navigate("/gain/add");
+
   const handleChange = (target) => {
     setData((prevData) => ({
       ...prevData,

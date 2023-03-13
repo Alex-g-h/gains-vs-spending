@@ -54,6 +54,10 @@ const SpendingForm = () => {
 
   const isAddForm = !spendingId; // otherwise it's the edit form
 
+  // redirect to add new spending page if current page is "edit" and
+  // spendingId is wrong (not exists)
+  if (!isAddForm && !currentSpending) navigate("/spending/add");
+
   const handleChange = (target) => {
     setData((prevData) => ({
       ...prevData,
