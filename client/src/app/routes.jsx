@@ -31,7 +31,7 @@ const routes = (isLoggedIn, location) => [
   },
   {
     path: "profile",
-    element: <ProfilePage />,
+    element: isLoggedIn ? <ProfilePage /> : <Navigate to="/login" />,
   },
   {
     path: "history",
