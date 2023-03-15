@@ -1,7 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const CommonFormWrap = ({ children }) => {
+  const navigate = useNavigate();
+
+  if (!children) navigate(-1);
+
   return (
     <div className="container mt-5">
       <div className="row">
