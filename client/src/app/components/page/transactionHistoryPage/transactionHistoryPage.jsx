@@ -17,9 +17,9 @@ import SpinLoading from "../../ui/spinLoading";
 import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
 import orderByLodash from "lodash/orderBy";
-import { useNavigate } from "react-router-dom";
 import usePaginate from "../../../hooks/usePaginate";
 import DropdownFilter from "./dropdownFilter";
+import DropdownMenuAdd from "./dropdownMenuAdd";
 
 const TransactionHistoryPage = () => {
   const currentUserId = useSelector(getCurrentUserId());
@@ -36,8 +36,6 @@ const TransactionHistoryPage = () => {
   const modalNameForId = "History";
   const { modalConfirmationForm, setModalDataToHandle } =
     useModalDelete(modalNameForId);
-
-  const navigate = useNavigate();
 
   const isLoading = gainsLoadingStatus || spendingLoadingStatus;
 
@@ -144,38 +142,7 @@ const TransactionHistoryPage = () => {
           <h4>Transaction history</h4>
         </div>
         <DropdownFilter handleFilter={handleFilter} />
-        <div className="dropdown">
-          <button
-            className="btn p-2 border mx-1"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Add transaction <i className="bi bi-plus-circle-fill"></i>
-          </button>
-          <ul
-            className="dropdown-menu"
-            aria-labelledby="dropdownMenuButton1"
-          >
-            <li>
-              <div
-                onClick={() => navigate("/gain/add")}
-                className="dropdown-item"
-              >
-                Gains
-              </div>
-            </li>
-            <li>
-              <div
-                onClick={() => navigate("/spending/add")}
-                className="dropdown-item"
-              >
-                Spending
-              </div>
-            </li>
-          </ul>
-        </div>
+        <DropdownMenuAdd />
       </div>
       {isLoading ? (
         <SpinLoading />
