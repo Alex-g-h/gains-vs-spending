@@ -19,29 +19,7 @@ import TransactionHistoryList from "./transactionHistoryList";
 import orderByLodash from "lodash/orderBy";
 import { useNavigate } from "react-router-dom";
 import usePaginate from "../../../hooks/usePaginate";
-
-const filterOptions = [
-  {
-    orderBy: "date",
-    dir: "asc",
-    text: "Early first",
-  },
-  {
-    orderBy: "date",
-    dir: "desc",
-    text: "Later first",
-  },
-  {
-    orderBy: "amount",
-    dir: "asc",
-    text: "Increasing amount",
-  },
-  {
-    orderBy: "amount",
-    dir: "desc",
-    text: "Decreasing amount",
-  },
-];
+import DropdownFilter from "./dropdownFilter";
 
 const TransactionHistoryPage = () => {
   const currentUserId = useSelector(getCurrentUserId());
@@ -50,6 +28,8 @@ const TransactionHistoryPage = () => {
   const spending = useSelector(getSpendings(currentUserId));
   const spendingLoadingStatus = useSelector(getSpendingLoadingStatus());
 
+  const [filter, setFilter] = useState({ orderBy: "date", dir: "asc" });
+
   const pageSize = 3;
   const [data, setData] = useState([]);
 
@@ -57,7 +37,6 @@ const TransactionHistoryPage = () => {
   const { modalConfirmationForm, setModalDataToHandle } =
     useModalDelete(modalNameForId);
 
-  const [filterOptionsIndex, setFilterOptionsIndex] = useState(0);
   const navigate = useNavigate();
 
   const isLoading = gainsLoadingStatus || spendingLoadingStatus;
@@ -91,7 +70,10 @@ const TransactionHistoryPage = () => {
     setData(commonData);
   }, [gainsLoadingStatus, spendingLoadingStatus]);
 
-  const filter = filterOptions[filterOptionsIndex];
+  const handleFilter = (filter) => {
+    setFilter(filter);
+  };
+
   const filteredTransactions = orderByLodash(data, filter.orderBy, filter.dir);
 
   const count = filteredTransactions ? filteredTransactions.length : 0;
@@ -155,46 +137,13 @@ const TransactionHistoryPage = () => {
     }
   };
 
-  const handleFilter = (filterIndex) => {
-    setFilterOptionsIndex(filterIndex);
-  };
-
   return (
     <>
       <div className="d-flex mb-2">
         <div className="align-self-center flex-grow-1">
           <h4>Transaction history</h4>
         </div>
-        <div className="dropdown">
-          <button
-            className="btn dropdown-toggle p-2 border mx-1"
-            type="button"
-            id="dropdownMenuButton1"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Filter <i className="bi bi-filter"></i>
-          </button>
-          <ul
-            className="dropdown-menu"
-            aria-labelledby="dropdownMenuButton1"
-          >
-            {filterOptions.map((f, index) => (
-              <li key={index}>
-                <div
-                  onClick={() => handleFilter(index)}
-                  className={
-                    index === filterOptionsIndex
-                      ? "dropdown-item active"
-                      : "dropdown-item"
-                  }
-                >
-                  {f.text}
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <DropdownFilter handleFilter={handleFilter} />
         <div className="dropdown">
           <button
             className="btn p-2 border mx-1"
