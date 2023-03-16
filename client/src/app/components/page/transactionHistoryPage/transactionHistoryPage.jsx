@@ -12,13 +12,13 @@ import {
   deleteSpendingById,
 } from "../../../store/spending";
 import { getCurrentUserId } from "../../../store/user";
-import { paginate } from "../../../utils/paginate";
 import Pagination from "../../common/pagination";
 import SpinLoading from "../../ui/spinLoading";
 import HistoryDataItem from "./historyDataItem";
 import TransactionHistoryList from "./transactionHistoryList";
 import orderByLodash from "lodash/orderBy";
 import { useNavigate } from "react-router-dom";
+import usePaginate from "../../../hooks/usePaginate";
 
 const filterOptions = [
   {
@@ -51,7 +51,6 @@ const TransactionHistoryPage = () => {
   const spendingLoadingStatus = useSelector(getSpendingLoadingStatus());
 
   const pageSize = 3;
-  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [data, setData] = useState([]);
 
   const modalNameForId = "History";
@@ -96,34 +95,12 @@ const TransactionHistoryPage = () => {
   const filteredTransactions = orderByLodash(data, filter.orderBy, filter.dir);
 
   const count = filteredTransactions ? filteredTransactions.length : 0;
-  const transactionsCrop = paginate(
-    filteredTransactions,
+
+  const {
+    handlePageChange,
+    itemsCrop: transactionsCrop,
     currentPageNumber,
-    pageSize
-  );
-
-  const handlePageChange = (pageIndex) => {
-    setCurrentPageNumber(pageIndex);
-  };
-
-  /**
-   * If selected page is the last page and
-   * items count has become not enough for this page then
-   * current page force change to previous one.
-   */
-  useEffect(() => {
-    if (isLoading || count === 0) return;
-
-    const pageCount = Math.ceil(count / pageSize);
-
-    if (pageCount < currentPageNumber) {
-      let newPageNumber = currentPageNumber - 1;
-      newPageNumber = newPageNumber <= 0 ? 1 : newPageNumber;
-      if (newPageNumber !== currentPageNumber) {
-        setCurrentPageNumber(newPageNumber);
-      }
-    }
-  }, [count]);
+  } = usePaginate(filteredTransactions, count, pageSize);
 
   /**
    * Delete transaction data
