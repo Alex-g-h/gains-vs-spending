@@ -137,5 +137,6 @@ export const getAccounts = (userId) => (state) =>
   }, []);
 
 export const getAccountLoadingStatus = () => (state) => state[name].isLoading;
+export const getAccountErrors = () => (state) => state[name].error;
 
 export default accountReducer;

@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getCurrentUserData, updateUser } from "../../store/user";
+import {
+  getAuthErrors,
+  getCurrentUserData,
+  updateUser,
+} from "../../store/user";
 import { validator } from "../../utils/validator";
 import RadioField from "../common/form/radioField";
 import TextField from "../common/form/textField";
 import SpinLoading from "../ui/spinLoading";
+import { toast } from "react-toastify";
 
 const ProfilePage = () => {
   const user = useSelector(getCurrentUserData());
@@ -14,6 +19,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const updateError = useSelector(getAuthErrors());
 
   if (!user) return "";
 
@@ -34,6 +40,10 @@ const ProfilePage = () => {
   useEffect(() => {
     validate();
   }, [data]);
+
+  useEffect(() => {
+    if (updateError) toast.error(updateError);
+  }, [updateError]);
 
   const handleChange = (target) => {
     setData((prevData) => ({

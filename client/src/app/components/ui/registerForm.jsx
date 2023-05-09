@@ -4,9 +4,10 @@ import RadioField from "../common/form/radioField";
 import { validator } from "../../utils/validator";
 import { useNavigate } from "react-router-dom";
 import CheckBoxField from "../common/form/checkBoxField";
-import { useDispatch } from "react-redux";
-import { signUp } from "../../store/user";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthErrors, signUp } from "../../store/user";
 import SpinLoading from "./spinLoading";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [data, setData] = useState({
@@ -20,6 +21,7 @@ const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const signupError = useSelector(getAuthErrors());
 
   const handleChange = (target) => {
     setData((prevData) => ({
@@ -64,6 +66,10 @@ const RegisterForm = () => {
   useEffect(() => {
     validate();
   }, [data]);
+
+  useEffect(() => {
+    if (signupError) toast.error(signupError);
+  }, [signupError]);
 
   const validate = () => {
     const errors = validator(data, validatorConfig);

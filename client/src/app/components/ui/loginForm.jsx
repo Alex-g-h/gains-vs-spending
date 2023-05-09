@@ -3,9 +3,10 @@ import TextField from "../common/form/textField";
 import { validator } from "../../utils/validator";
 import CheckBoxField from "../common/form/checkBoxField";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { signIn } from "../../store/user";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthErrors, signIn } from "../../store/user";
 import SpinLoading from "./spinLoading";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "", stayOn: false });
@@ -14,6 +15,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const loginError = useSelector(getAuthErrors());
 
   const handleChange = (target) => {
     setData((prevData) => ({
@@ -34,6 +36,10 @@ const LoginForm = () => {
   useEffect(() => {
     validate();
   }, [data]);
+
+  useEffect(() => {
+    if (loginError) toast.error(loginError);
+  }, [loginError]);
 
   const validate = () => {
     const errors = validator(data, validatorConfig);
