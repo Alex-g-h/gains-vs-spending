@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import CaptionWithAdd from "../../common/captionWithAdd";
+import CaptionWithAddAndImg from "../../common/captionWithAddAndImg";
 
 const CardWithHeader = ({
   children,
   headerAddLink,
   headerCaption,
+  headerImage,
   divMargin = "mx-1",
 }) => {
   const navigate = useNavigate();
@@ -19,9 +20,10 @@ const CardWithHeader = ({
 
   return (
     <div className={classes + divMargin}>
-      <CaptionWithAdd
+      <CaptionWithAddAndImg
         caption={headerCaption}
         handleAdd={handleAdd}
+        imageSource={headerImage}
       />
       {children}
     </div>
@@ -35,6 +37,7 @@ CardWithHeader.propTypes = {
   ]),
   headerAddLink: PropTypes.string,
   headerCaption: PropTypes.string,
+  headerImage: PropTypes.string,
   divMargin: PropTypes.string,
 };
 

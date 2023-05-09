@@ -5,8 +5,6 @@ import Gains from "../../ui/gain";
 import Spending from "../../ui/spending";
 
 const MainPage = () => {
-  // TODO: add icons to headers Gains, Accounts, Spending
-
   // TODO: add placeholders instead of spin loading status
 
   // TODO: [???] add "Back" button to input/update forms
