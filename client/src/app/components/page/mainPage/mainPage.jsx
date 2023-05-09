@@ -7,13 +7,9 @@ import Spending from "../../ui/spending";
 const MainPage = () => {
   // TODO: add icons to headers Gains, Accounts, Spending
 
-  // TODO: refactor headers for Gains, Accounts, Spending with HOC
-
   // TODO: add placeholders instead of spin loading status
 
   // TODO: [???] add "Back" button to input/update forms
-
-  // TODO: Add toast error/warning messages
 
   return (
     <>
