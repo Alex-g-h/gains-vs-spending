@@ -18,7 +18,7 @@ function App() {
   const elements = useRoutes(routes(isLoggedIn, location));
 
   return (
-    <div>
+    <div className="page-background">
       <AppLoader>
         <NavBar />
         {elements}

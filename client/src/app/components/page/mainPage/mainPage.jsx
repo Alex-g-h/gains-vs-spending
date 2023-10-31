@@ -11,7 +11,7 @@ const MainPage = () => {
 
   return (
     <>
-      <div className="d-flex flex-column ">
+      <div className="d-flex flex-column pt-2">
         <div className="d-flex flex-wrap justify-content-evenly">
           <Gains />
           <Accounts />

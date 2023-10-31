@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const CaptionWithAddAndImg = ({ caption, handleAdd, imageSource }) => {
   return (
-    <div className="d-flex align-items-center align-self-center">
+    <div className="d-flex align-items-center align-self-center common-card__header">
       {imageSource && (
         <div>
           <img

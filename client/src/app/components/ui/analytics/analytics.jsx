@@ -15,7 +15,7 @@ const Analytics = () => {
     !isGains ? "btn btn-primary" : "btn btn-secondary";
 
   return (
-    <div className="border rounded p-2 ">
+    <div className="border rounded p-2 common-card">
       <div className="btn-group">
         <button
           className={getClassesGains()}
@@ -30,7 +30,7 @@ const Analytics = () => {
           Spending
         </button>
       </div>
-      <hr />
+      <hr className="m-2" />
       <div className="d-flex flex-wrap justify-content-evenly">
         <div>{isGains ? <GainsChartNut /> : <SpendingChartNut />}</div>
         <div>{isGains ? <GainsChartLine /> : <SpendingChartLine />}</div>

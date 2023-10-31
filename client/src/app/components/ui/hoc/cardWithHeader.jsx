@@ -16,7 +16,7 @@ const CardWithHeader = ({
     navigate(headerAddLink);
   };
 
-  const classes = " border rounded p-1 mb-2 ";
+  const classes = " border rounded p-1 mb-2 common-card ";
 
   return (
     <div className={classes + divMargin}>

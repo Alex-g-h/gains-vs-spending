@@ -8,7 +8,7 @@ const CommonFormWrap = ({ children }) => {
   if (!children) navigate(-1);
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 common-block">
       <div className="row">
         <div className="col-md-6 offset-md-3 shadow p-4">{children}</div>
       </div>
