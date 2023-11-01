@@ -137,7 +137,7 @@ const TransactionHistoryPage = () => {
 
   return (
     <>
-      <div className="d-flex mb-2 mt-2 p-2 history-header">
+      <div className="d-flex mb-2 mt-2 p-2 grey-background--rounded">
         <div className="align-self-center flex-grow-1">
           <h4>Transaction history</h4>
         </div>

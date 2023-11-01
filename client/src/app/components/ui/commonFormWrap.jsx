@@ -10,7 +10,9 @@ const CommonFormWrap = ({ children }) => {
   return (
     <div className="container mt-5 common-block">
       <div className="row">
-        <div className="col-md-6 offset-md-3 shadow p-4">{children}</div>
+        <div className="col-md-6 offset-md-3 shadow p-4 mb-2 grey-background--rounded">
+          {children}
+        </div>
       </div>
     </div>
   );

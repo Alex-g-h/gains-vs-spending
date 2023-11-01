@@ -65,7 +65,7 @@ code {
   background-color: grey;
 }
 
-.login, .history-header{
+.grey-background--rounded {
   background-color: var(--GrayTransparency-200);
   border-radius: 5px;
 }
