@@ -35,7 +35,7 @@ const DropdownFilter = ({ handleFilter }) => {
   return (
     <div className="dropdown">
       <button
-        className="btn dropdown-toggle p-2 border mx-1"
+        className="btn dropdown-toggle p-2 border mx-1 button--grey"
         type="button"
         id="dropdownMenuButton1"
         data-bs-toggle="dropdown"

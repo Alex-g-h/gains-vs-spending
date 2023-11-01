@@ -14,7 +14,10 @@
   --Green-900: #14532d;
 
   --Gray-200: #e5e7eb;
+  --Gray-300: #d1d5db;
+  --Gray-400: #9ca3af;
 
+/* b2 - 0.70 */
 /* cd - 0.80 */
 /* da - 0.85 */
 /* e6 - 0.90 */
@@ -23,6 +26,8 @@
   --GreenTransparency-100: #dcfce7cd; /* 20% transparency */
 
   --GrayTransparency-200: #e5e7ebcd; /* 20% transparency */
+  --GrayTransparency-300: #d1d5dbe6; /* 10% transparency */
+  --GrayTransparency-400: #9ca3afcd; /* 20% transparency */
 }
 
 #root {
@@ -60,6 +65,11 @@ code {
   background-color: grey;
 }
 
-.login {
+.login, .history-header{
   background-color: var(--GrayTransparency-200);
+  border-radius: 5px;
+}
+
+.button--grey {
+  background-color: var(--GrayTransparency-300) !important;
 }

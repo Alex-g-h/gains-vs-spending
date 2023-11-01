@@ -7,7 +7,7 @@ const DropdownMenuAdd = () => {
   return (
     <div className="dropdown">
       <button
-        className="btn p-2 border mx-1"
+        className="btn p-2 border mx-1 button--grey"
         type="button"
         id="dropdownMenuButton2"
         data-bs-toggle="dropdown"
